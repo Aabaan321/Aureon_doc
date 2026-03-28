@@ -743,7 +743,13 @@
       <li><strong>Broken Appointment Form:</strong> The "Make Appointment" form under the Services section returns a fatal <em>"Sorry, the file you have requested does not exist"</em> error when submitted. User intents are completely dropped.</li>
       <li><strong>Unresponsive UI Elements:</strong> The clickable buttons for specific services (Criminal, Civil, Corporate, etc.) are unresponsive dead links. They do not trigger a popup or open a detailed service page, resulting in a frustrating user experience.</li>
       <li><strong>Mobile Responsiveness Bug:</strong> On mobile devices, the UI suffers from a severe glitch where the screen zooms out arbitrarily and becomes completely unresponsive for several seconds.</li>
+      <li><strong>Missing Top Bar on Mobile:</strong> The crucial top contact bar (containing office hours, direct email, and social links) is completely hidden on mobile screens, severing a primary communication channel for mobile users.</li>
     </ul>
+
+    <div style="margin-top: 20px;">
+      <p style="font-size: 0.85em; color: var(--text2); margin-bottom: 8px;"><strong>Screenshot Evidence (Missing Top Bar on Mobile):</strong></p>
+      <img src="topbar-missing.png" alt="Missing Top Bar" style="width: 100%; max-height: 120px; object-fit: cover; object-position: left; border-radius: 8px; border: 1px solid rgba(255,77,77,0.3); background: #050508; margin-bottom: 20px;">
+    </div>
     
     <div style="margin-top: 20px;">
       <p style="font-size: 0.85em; color: var(--text2); margin-bottom: 8px;"><strong>Screen Recording Evidence (Mobile UI Bug):</strong></p>
@@ -806,6 +812,34 @@
       </tr>
     </tbody>
   </table>
+
+  <div style="margin-top: 35px;">
+    <h3>The Honest Trade-offs</h3>
+    <p>While we strongly advocate for Custom Code for a premium legal firm, we believe in complete transparency about the trade-offs:</p>
+    
+    <div class="two-col" style="margin-top: 15px;">
+      <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); padding: 20px; border-radius: 8px;">
+        <h4 style="color: var(--green-ok); margin-bottom: 10px;">More Reasons Custom Code Wins</h4>
+        <ul class="check-list" style="font-size: 0.85em;">
+          <li><strong>Zero Licensing Fees:</strong> You don't pay recurring subscriptions for premium plugins or page builders.</li>
+          <li><strong>Longevity:</strong> A well-built React site can last 5-7 years without needing a major overhaul, unlike WordPress themes which frequently break during core updates.</li>
+          <li><strong>Brand Prestige:</strong> The site feels distinctly unique, not like a generic template thousands of other businesses use.</li>
+        </ul>
+      </div>
+      <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); padding: 20px; border-radius: 8px;">
+        <h4 style="color: var(--yellow-high); margin-bottom: 10px;">Downsides of Custom Code</h4>
+        <ul class="dash-list" style="font-size: 0.85em;">
+          <li><strong>Higher Initial Investment:</strong> It takes significantly more skill and time to build from scratch.</li>
+          <li><strong>Developer Reliance:</strong> You cannot easily change the layout or add new complex features without a developer (though content editing is still manageable).</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="background: rgba(201, 168, 76, 0.05); border-left: 3px solid var(--gold-primary); padding: 15px 20px; margin-top: 20px; border-radius: 0 8px 8px 0;">
+      <h4 style="font-size: 0.95em; color: var(--gold-primary);">When is WordPress Actually Better?</h4>
+      <p style="font-size: 0.85em; margin-top: 5px; margin-bottom: 0;">WordPress remains the best choice for <strong>high-volume content publishers</strong> (like news magazines publishing 10+ articles a day) or <strong>budget-conscious startups</strong> that need a DIY solution they can build themselves over a weekend using a $50 template. It is not recommended for high-end professional services where security, brand trust, and user experience are critical.</p>
+    </div>
+  </div>
 
   <div class="page-footer">
     <span class="footer-brand">Aureon Studio</span>
