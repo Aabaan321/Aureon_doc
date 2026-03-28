@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aureon Studio — Proposal for Legal Syndicate Advisory</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0a0a0f;
+      --bg-secondary: #12121a;
+      --bg-card: #1a1a25;
+      --bg-card-hover: #22222f;
+      --gold-primary: #c9a84c;
+      --gold-light: #e8d48b;
+      --gold-dark: #a07c2e;
+      --gold-gradient: linear-gradient(135deg, #c9a84c, #e8d48b, #c9a84c);
+      --text-primary: #f0ece2;
+      --text-secondary: #a0a0b0;
+      --text-muted: #6a6a7a;
+      --red-critical: #ff4d4d;
+      --yellow-high: #f0c040;
+      --green-ok: #4caf50;
+      --border-subtle: rgba(201, 168, 76, 0.15);
+      --border-gold: rgba(201, 168, 76, 0.4);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: 'Inter', sans-serif;
+      font-size: 11pt;
+      line-height: 1.7;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    /* ── Page Break Utilities ── */
+    .page-break { page-break-after: always; break-after: page; }
+    .no-break { page-break-inside: avoid; break-inside: avoid; }
+
+    /* ── Typography ── */
+    h1, h2, h3, h4 { font-family: 'Playfair Display', serif; color: var(--text-primary); }
+    h1 { font-size: 2.8em; font-weight: 700; line-height: 1.2; }
+    h2 { font-size: 1.8em; font-weight: 600; line-height: 1.3; margin-bottom: 0.5em; }
+    h3 { font-size: 1.3em; font-weight: 600; margin-bottom: 0.4em; }
+    h4 { font-size: 1.1em; font-weight: 500; }
+    p { margin-bottom: 0.8em; color: var(--text-secondary); }
+    strong { color: var(--text-primary); font-weight: 600; }
+
+    .gold-text { color: var(--gold-primary); }
+    .gold-gradient-text {
+      background: var(--gold-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7em;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold-primary);
+      margin-bottom: 0.5em;
+      display: block;
+    }
+    .section-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 4em;
+      font-weight: 800;
+      color: rgba(201, 168, 76, 0.08);
+      position: absolute;
+      top: -20px;
+      right: 30px;
+      line-height: 1;
+      user-select: none;
+    }
+
+    /* ── Layout ── */
+    .page {
+      width: 210mm;
+      min-height: 297mm;
+      margin: 0 auto;
+      padding: 50px 55px;
+      position: relative;
+      background: var(--bg-primary);
+      overflow: hidden;
+    }
+    .page::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--gold-gradient);
+    }
+
+    /* ── Cover Page ── */
+    .cover-page {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+    }
+    .cover-page::after {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 500px; height: 500px;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .cover-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5em;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 60px;
+      position: relative;
+      z-index: 1;
+    }
+    .cover-logo .logo-dot {
+      display: inline-block;
+      width: 8px; height: 8px;
+      background: var(--gold-primary);
+      border-radius: 50%;
+      margin-left: 3px;
+      vertical-align: super;
+    }
+    .cover-divider {
+      width: 80px; height: 1px;
+      background: var(--gold-gradient);
+      margin: 30px auto;
+    }
+    .cover-title {
+      font-size: 2.4em;
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 8px;
+      position: relative;
+      z-index: 1;
+    }
+    .cover-subtitle {
+      font-size: 1.1em;
+      color: var(--text-secondary);
+      font-weight: 300;
+      margin-bottom: 10px;
+      position: relative;
+      z-index: 1;
+    }
+    .cover-meta {
+      margin-top: 60px;
+      font-size: 0.85em;
+      color: var(--text-muted);
+      line-height: 2;
+      position: relative;
+      z-index: 1;
+    }
+    .cover-meta strong { color: var(--text-secondary); }
+
+    /* ── Cards ── */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 28px 30px;
+      margin-bottom: 18px;
+      position: relative;
+      overflow: hidden;
+    }
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px; height: 100%;
+      background: var(--gold-gradient);
+      border-radius: 3px 0 0 3px;
+    }
+    .card.critical::before { background: var(--red-critical); }
+    .card.high::before { background: var(--yellow-high); }
+
+    /* ── Severity Badge ── */
+    .severity {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7em;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 3px 12px;
+      border-radius: 20px;
+      margin-bottom: 12px;
+    }
+    .severity.critical { background: rgba(255,77,77,0.15); color: var(--red-critical); border: 1px solid rgba(255,77,77,0.3); }
+    .severity.high { background: rgba(240,192,64,0.12); color: var(--yellow-high); border: 1px solid rgba(240,192,64,0.25); }
+
+    /* ── Impact List ── */
+    .impact-list { list-style: none; padding: 0; margin-top: 12px; }
+    .impact-list li {
+      padding: 4px 0 4px 22px;
+      position: relative;
+      color: var(--text-secondary);
+      font-size: 0.92em;
+    }
+    .impact-list li::before {
+      content: '✗';
+      position: absolute;
+      left: 0; top: 4px;
+      color: var(--red-critical);
+      font-weight: 700;
+    }
+
+    /* ── Feature List ── */
+    .feature-list { list-style: none; padding: 0; }
+    .feature-list li {
+      padding: 5px 0 5px 22px;
+      position: relative;
+      color: var(--text-secondary);
+      font-size: 0.92em;
+    }
+    .feature-list li::before {
+      content: '→';
+      position: absolute;
+      left: 0; top: 5px;
+      color: var(--gold-primary);
+      font-weight: 700;
+    }
+
+    /* ── Check List ── */
+    .check-list { list-style: none; padding: 0; }
+    .check-list li {
+      padding: 5px 0 5px 24px;
+      position: relative;
+      color: var(--text-secondary);
+      font-size: 0.92em;
+    }
+    .check-list li::before {
+      content: '✦';
+      position: absolute;
+      left: 0; top: 5px;
+      color: var(--gold-primary);
+    }
+
+    /* ── Service List with dash ── */
+    .dash-list { list-style: none; padding: 0; }
+    .dash-list li {
+      padding: 4px 0 4px 20px;
+      position: relative;
+      color: var(--text-secondary);
+      font-size: 0.92em;
+    }
+    .dash-list li::before {
+      content: '—';
+      position: absolute;
+      left: 0; top: 4px;
+      color: var(--gold-primary);
+    }
+
+    /* ── Comparison Table ── */
+    .comparison-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      margin: 15px 0;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border-subtle);
+    }
+    .comparison-table th {
+      background: var(--bg-card);
+      color: var(--gold-primary);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75em;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 14px 20px;
+      text-align: left;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .comparison-table td {
+      padding: 14px 20px;
+      font-size: 0.9em;
+      color: var(--text-secondary);
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+      vertical-align: top;
+    }
+    .comparison-table tr:last-child td { border-bottom: none; }
+    .comparison-table td:first-child {
+      color: var(--text-primary);
+      font-weight: 600;
+      width: 110px;
+      font-size: 0.85em;
+    }
+    .comparison-table .wp-col { background: rgba(255,77,77,0.03); }
+    .comparison-table .cc-col { background: rgba(76,175,80,0.03); }
+
+    /* ── Timeline ── */
+    .timeline-item {
+      padding-left: 30px;
+      border-left: 2px solid var(--border-gold);
+      margin-bottom: 22px;
+      position: relative;
+    }
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -6px; top: 5px;
+      width: 10px; height: 10px;
+      background: var(--gold-primary);
+      border-radius: 50%;
+    }
+    .timeline-item h4 { margin-bottom: 6px; color: var(--gold-light); }
+    .timeline-item p { margin-bottom: 3px; font-size: 0.9em; }
+
+    /* ── Concept Cards ── */
+    .concept-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 0;
+      margin-bottom: 22px;
+      overflow: hidden;
+      position: relative;
+    }
+    .concept-card.recommended { border-color: var(--gold-primary); }
+    .concept-card.recommended::after {
+      content: '✦ RECOMMENDED';
+      position: absolute;
+      top: 16px; right: 16px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65em;
+      letter-spacing: 0.15em;
+      color: var(--bg-primary);
+      background: var(--gold-gradient);
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-weight: 700;
+      z-index: 2;
+    }
+    .concept-card img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+      filter: brightness(0.85);
+    }
+    .concept-card-body { padding: 22px 26px; }
+    .concept-card-body h3 { margin-bottom: 8px; }
+    .concept-card-body p { font-size: 0.9em; }
+
+    /* ── Closing Page ── */
+    .closing-page {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+    .closing-quote {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35em;
+      font-style: italic;
+      color: var(--text-primary);
+      max-width: 480px;
+      line-height: 1.6;
+      margin-bottom: 40px;
+    }
+    .closing-quote::before { content: '"'; color: var(--gold-primary); font-size: 1.5em; }
+    .closing-quote::after { content: '"'; color: var(--gold-primary); font-size: 1.5em; }
+    .closing-founders {
+      margin-top: 20px;
+      text-align: center;
+    }
+    .closing-founders p {
+      font-size: 0.9em;
+      margin-bottom: 3px;
+    }
+    .closing-founders .name { color: var(--text-primary); font-weight: 600; }
+    .closing-founders .role { color: var(--text-muted); font-size: 0.82em; }
+    .closing-contact {
+      margin-top: 40px;
+      font-size: 0.85em;
+      color: var(--text-muted);
+      line-height: 2;
+    }
+    .closing-brand {
+      margin-top: 50px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7em;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold-primary);
+    }
+
+    /* ── Two Column ── */
+    .two-col { display: flex; gap: 20px; }
+    .two-col > div { flex: 1; }
+
+    /* ── Page Footer ── */
+    .page-footer {
+      position: absolute;
+      bottom: 25px; left: 55px; right: 55px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.7em;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 10px;
+    }
+    .page-footer .footer-brand {
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+      color: var(--gold-primary);
+      letter-spacing: 0.1em;
+    }
+
+    /* ── Horizontal Rule ── */
+    hr.gold-line {
+      border: none;
+      height: 1px;
+      background: var(--gold-gradient);
+      margin: 25px 0;
+    }
+
+    /* ── Print Styles ── */
+    @media print {
+      body { background: var(--bg-primary) !important; }
+      .page {
+        width: 100%;
+        margin: 0;
+        padding: 40px 45px;
+        page-break-after: always;
+      }
+      .page:last-child { page-break-after: auto; }
+    }
+
+    /* ── Subtle Animations (screen only) ── */
+    @media screen {
+      .card { transition: border-color 0.3s ease; }
+      .card:hover { border-color: var(--border-gold); }
+    }
+
+    .services-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 15px;
+    }
+    .service-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 16px 18px;
+    }
+    .service-item h4 {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.88em;
+      font-weight: 600;
+      color: var(--gold-primary);
+      margin-bottom: 5px;
+    }
+    .service-item p { font-size: 0.82em; margin: 0; color: var(--text-muted); }
+
+    .why-list { list-style: none; padding: 0; margin-top: 12px; }
+    .why-list li {
+      padding: 6px 0 6px 20px;
+      position: relative;
+      color: var(--text-secondary);
+      font-size: 0.9em;
+    }
+    .why-list li::before {
+      content: '→';
+      position: absolute;
+      left: 0; top: 6px;
+      color: var(--gold-primary);
+      font-weight: 700;
+    }
+
+    /* Page Structure ── */
+    .page-structure {
+      margin-top: 10px;
+    }
+    .page-entry {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 18px 22px;
+      margin-bottom: 12px;
+    }
+    .page-entry h4 {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8em;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold-primary);
+      margin-bottom: 8px;
+    }
+
+    /* AI Features */
+    .ai-feature {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 22px 26px;
+      margin-bottom: 14px;
+    }
+    .ai-feature h4 {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78em;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: 8px;
+    }
+    .ai-feature p { font-size: 0.9em; margin: 0; }
+
+    /* Investment box */
+    .invest-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-gold);
+      border-radius: 12px;
+      padding: 28px 32px;
+      margin-bottom: 18px;
+    }
+    .invest-box h3 { margin-bottom: 14px; }
+    .invest-detail {
+      display: flex;
+      justify-content: space-between;
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      font-size: 0.9em;
+    }
+    .invest-detail:last-child { border-bottom: none; }
+    .invest-detail .label { color: var(--text-muted); }
+    .invest-detail .value { color: var(--text-primary); font-weight: 500; }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     COVER PAGE
+     ═══════════════════════════════════════════════════════════════ -->
+<div class="page cover-page page-break">
+  <div class="cover-logo">
+    <span class="gold-gradient-text">AUREON STUDIO</span><span class="logo-dot"></span>
+  </div>
+
+  <div class="cover-divider"></div>
+
+  <h1 class="cover-title">
+    Website Evaluation<br>&amp; <span class="gold-gradient-text">Modernization Strategy</span>
+  </h1>
+  <p class="cover-subtitle">A comprehensive proposal for your digital transformation</p>
+
+  <div class="cover-divider"></div>
+
+  <div class="cover-meta">
+    <strong>Prepared for:</strong> Legal Syndicate Advisory Pvt. Ltd.<br>
+    <strong>Prepared by:</strong> Aureon Studio — Dubai, UAE<br>
+    <strong>Date:</strong> March 2026<br>
+    <strong>Document:</strong> Confidential
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SECTION 1 — ABOUT AUREON STUDIO
+     ═══════════════════════════════════════════════════════════════ -->
+<div class="page page-break" style="position: relative;">
+  <span class="section-number">01</span>
+  <span class="section-label">Section 01</span>
+  <h2>About <span class="gold-text">Aureon Studio</span></h2>
+  <hr class="gold-line">
+
+  <h3>Who We Are</h3>
+  <p>Aureon Studio is a boutique digital agency founded and operated by three co-founders based in <strong>Dubai, UAE</strong>. We specialise in building premium, fully custom websites and intelligent AI systems for businesses that are serious about their digital presence.</p>
+  <p>We are not a large agency with dozens of clients and junior developers. We are a focused team of <strong>three founders</strong> — a Lead Developer, a Technical Architect & AI Specialist, and a Client Strategy Lead — who work directly on every project we take on.</p>
+
+  <hr class="gold-line">
+
+  <h3>Our Core Services</h3>
+  <div class="services-grid">
+    <div class="service-item">
+      <h4>Custom Website Development</h4>
+      <p>Full custom-coded websites built with React and Next.js. No templates, no WordPress, no shortcuts.</p>
+    </div>
+    <div class="service-item">
+      <h4>UI/UX Design</h4>
+      <p>Pixel-perfect design that makes your brand look and feel premium, trustworthy, and modern.</p>
+    </div>
+    <div class="service-item">
+      <h4>AI Chatbots & Voice Agents</h4>
+      <p>Custom AI assistants trained on your business — answering client questions 24/7 and qualifying leads automatically.</p>
+    </div>
+    <div class="service-item">
+      <h4>Backend API Development</h4>
+      <p>Connecting your tools, automating workflows, and building the invisible systems that make everything run smoothly.</p>
+    </div>
+    <div class="service-item">
+      <h4>Digital Marketing &amp; SEO</h4>
+      <p>Getting your business found on Google and converting that traffic into real clients.</p>
+    </div>
+    <div class="service-item">
+      <h4>Ongoing Support</h4>
+      <p>Every project includes 30 days of free post-launch support. We stand behind our work.</p>
+    </div>
+  </div>
+
+  <hr class="gold-line">
+
+  <h3>Why We Are Different</h3>
+  <ul class="why-list">
+    <li>Maximum 5 clients at a time — your project always gets our full attention</li>
+    <li>You work directly with the founders — no account managers, no handoffs</li>
+    <li>Everything is built from scratch — zero templates or page builders</li>
+    <li>40 to 50% below typical agency pricing</li>
+    <li>Every project includes 30 days of free post-launch support</li>
+  </ul>
+
+  <p style="margin-top: 18px; font-size: 0.85em; color: var(--text-muted);">
+    <strong style="color: var(--gold-primary);">Our Website:</strong> aureon-studio-olive.vercel.app
+  </p>
+
+  <div class="page-footer">
+    <span class="footer-brand">Aureon Studio</span>
+    <span>Confidential — Legal Syndicate Advisory Pvt. Ltd.</span>
+    <span>Page 2</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SECTION 2 — WEBSITE AUDIT
+     ═══════════════════════════════════════════════════════════════ -->
+<div class="page page-break" style="position: relative;">
+  <span class="section-number">02</span>
+  <span class="section-label">Section 02</span>
+  <h2>Website Audit: <span class="gold-text">synlegal.in</span></h2>
+  <p>We conducted a full technical and visual review of your current website. Below are our findings.</p>
+  <hr class="gold-line">
+
+  <!-- Issue 01 -->
+  <div class="card critical no-break">
+    <span class="severity critical">🔴 Critical — Active Security Breach</span>
+    <h3>Issue 01 — SEO Spam Injection</h3>
+    <p>The website has been <strong>actively compromised</strong>. Russian-language sports betting spam links are currently injected and visible on the homepage, /blog, and /for-lawyers pages. This is a known attack called <strong>SEO Spam Injection</strong> — hackers exploit vulnerable WordPress plugins to insert hidden or visible links to gambling sites.</p>
+    <p>Every visitor to synlegal.in right now is seeing this content. This is <strong>actively damaging</strong> the firm's reputation, credibility, and Google search ranking.</p>
+    <ul class="impact-list">
+      <li>Visitors see unprofessional spam content</li>
+      <li>Google may penalise or blacklist the domain</li>
+      <li>Firm data and client information at risk</li>
+      <li>Bar Council reputation standards affected</li>
+    </ul>
+  </div>
+
+  <!-- Issue 02 -->
+  <div class="card critical no-break">
+    <span class="severity critical">🔴 Critical — Outdated WordPress Installation</span>
+    <h3>Issue 02 — Vulnerable Tech Stack</h3>
+    <p>The site runs on <strong>WordPress 6.2.9</strong> — an older version with multiple known vulnerabilities. Several third-party plugins are installed including Chaty and Disclaimer Popup. Each plugin is a potential security entry point and the current breach almost certainly entered through one of them.</p>
+    <ul class="impact-list">
+      <li>Slow page load speeds hurting SEO</li>
+      <li>Every plugin update is a risk</li>
+      <li>Cannot guarantee security going forward</li>
+      <li>Limited ability to add modern features</li>
+    </ul>
+  </div>
+
+  <div class="page-footer">
+    <span class="footer-brand">Aureon Studio</span>
+    <span>Confidential — Legal Syndicate Advisory Pvt. Ltd.</span>
+    <span>Page 3</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SECTION 2 CONTINUED — Issues 03 & 04
+     ═══════════════════════════════════════════════════════════════ -->
+<div class="page page-break" style="position: relative;">
+  <span class="section-number">02</span>
+  <span class="section-label">Section 02 — Continued</span>
+  <h2>Website Audit <span class="gold-text">(Continued)</span></h2>
+  <hr class="gold-line">
+
+  <!-- Issue 03 -->
+  <div class="card high no-break">
+    <span class="severity high">🟡 High — Generic Template Design</span>
+    <h3>Issue 03 — Design Does Not Reflect Authority</h3>
+    <p>The current design uses a <strong>standard legal website template</strong>. For a firm with presence across 12 Indian cities handling Criminal, Corporate, and Civil law at the highest level — the website does not reflect that authority or credibility.</p>
+    <ul class="impact-list">
+      <li>Does not project premium positioning</li>
+      <li>Visitors do not feel immediate trust</li>
+      <li>Competitors with better sites win clients</li>
+    </ul>
+  </div>
+
+  <!-- Issue 04 -->
+  <div class="card high no-break">
+    <span class="severity high">🟡 High — No Structured Client Intake</span>
+    <h3>Issue 04 — Missed Lead Opportunities</h3>
+    <p>The only client contact method is a basic WhatsApp button. There is <strong>no structured intake form</strong>, no case type selector, and no way to capture enquiries outside of business hours. Potential clients visiting at night or on weekends have no way to reach the firm.</p>
+    <ul class="impact-list">
+      <li>Leads lost outside Mon–Sat, 10am–6pm</li>
+      <li>No structured case qualification</li>
+      <li>No follow-up system possible</li>
+    </ul>
+  </div>
+
+  <div class="page-footer">
+    <span class="footer-brand">Aureon Studio</span>
+    <span>Confidential — Legal Syndicate Advisory Pvt. Ltd.</span>
+    <span>Page 4</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SECTION 3 — WORDPRESS VS CUSTOM CODE
+     ═══════════════════════════════════════════════════════════════ -->
+<div class="page page-break" style="position: relative;">
+  <span class="section-number">03</span>
+  <span class="section-label">Section 03</span>
+  <h2>WordPress vs <span class="gold-text">Custom Code</span></h2>
+  <p>The issues identified above are not fixable by simply updating WordPress. They are <strong>fundamental limitations of the platform itself</strong>.</p>
+  <hr class="gold-line">
+
+  <table class="comparison-table">
+    <thead>
+      <tr>
+        <th>Aspect</th>
+        <th class="wp-col">WordPress</th>
+        <th class="cc-col">Custom Code</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Security</td>
+        <td class="wp-col">Every plugin is a potential entry point. The current breach is direct proof of this.</td>
+        <td class="cc-col">No plugins, no database vulnerabilities, no attack surface. Spam injection like this is virtually impossible.</td>
+      </tr>
+      <tr>
+        <td>Performance</td>
+        <td class="wp-col">Plugin bloat creates slow load times. Average WordPress site loads in 3–5 seconds.</td>
+        <td class="cc-col">Clean optimised code loads in under 1 second. Google directly rewards this with higher rankings.</td>
+      </tr>
+      <tr>
+        <td>Design</td>
+        <td class="wp-col">Restricted by theme limitations. True customisation requires expensive workarounds.</td>
+        <td class="cc-col">Pixel-perfect design with zero restrictions. Built exactly as envisioned.</td>
+      </tr>
+      <tr>
+        <td>Scalability</td>
+        <td class="wp-col">Adding advanced features like AI or client portals causes plugin conflicts and instability.</td>
+        <td class="cc-col">Any feature can be cleanly integrated — including full AI systems in Phase 2.</td>
+      </tr>
+      <tr>
+        <td>Long-term Cost</td>
+        <td class="wp-col">Recurring costs for premium plugins, security tools, and emergency fixes after breaches.</td>
+        <td class="cc-col">One clean investment. Stable codebase built to last years without constant spend.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="page-footer">
+    <span class="footer-brand">Aureon Studio</span>
+    <span>Confidential — Legal Syndicate Advisory Pvt. Ltd.</span>
+    <span>Page 5</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SECTION 4 — REDESIGN CONCEPTS
+     ═══════════════════════════════════════════════════════════════ -->
+<div class="page page-break" style="position: relative;">
+  <span class="section-number">04</span>
+  <span class="section-label">Section 04</span>
+  <h2>Proposed <span class="gold-text">Redesign Concepts</span></h2>
+  <p>We are presenting three distinct design directions. All three are fully custom-coded and each can be built to include any combination of features.</p>
+  <hr class="gold-line">
+
+  <!-- Concept 1 -->
+  <div class="concept-card recommended no-break">
+    <img src="law_firm_design_1_1774688948919.png" alt="Concept 1 — The Corporate Elite">
+    <div class="concept-card-body">
+      <h3>Concept 1 — The Corporate Elite</h3>
+      <p>Dark mode with rich gold typography and an authority-driven layout. Projects absolute command and premium positioning. Ideal for high-value corporate and criminal clients. Similar in feel to top-tier international law firms.</p>
+      <ul class="check-list" style="margin-top: 10px;">
+        <li>Deep black and gold premium aesthetic</li>
+        <li>Editorial, authoritative typography</li>
+        <li>Glassmorphism practice area cards</li>
+        <li>Premium founder and team section</li>
+        <li>Full AI chat widget (Phase 2 ready)</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span class="footer-brand">Aureon Studio</span>
+    <span>Confidential — Legal Syndicate Advisory Pvt. Ltd.</span>
+    <span>Page 6</span>
+  </div>
+</div>
+
+<!-- Concepts 2 & 3 -->
+<div class="page page-break" style="position: relative;">
+  <span class="section-number">04</span>
+  <span class="section-label">Section 04 — Continued</span>
+  <h2>Redesign Concepts <span class="gold-text">(Continued)</span></h2>
+  <hr class="gold-line">
+
+  <!-- Concept 2 -->
+  <div class="concept-card no-break">
+    <img src="law_firm_design_2_1774688964233.png" alt="Concept 2 — Trust & Clarity">
+    <div class="concept-card-body">
+      <h3>Concept 2 — Trust &amp; Clarity</h3>
+      <p>Light mode with a navy and silver palette. Extensive whitespace and clean typography build immediate trust. Best suited for clients seeking matrimonial, civil, or consumer protection services. Highly readable for all age groups.</p>
+      <ul class="check-list" style="margin-top: 10px;">
+        <li>Navy and white clean layout</li>
+        <li>High readability design</li>
+        <li>Client testimonials prominently featured</li>
+        <li>Clear service navigation</li>
+        <li>Simple online enquiry flow</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Concept 3 -->
+  <div class="concept-card no-break">
+    <img src="law_firm_design_3_1774688979172.png" alt="Concept 3 — Modern Syndicate">
+    <div class="concept-card-body">
+      <h3>Concept 3 — Modern Syndicate</h3>
+      <p>High-contrast monochrome with a minimalist aesthetic. Projects a cutting-edge, forward-thinking legal team. Best for positioning the firm in cyber crime, IT law, and modern corporate dispute spaces.</p>
+      <ul class="check-list" style="margin-top: 10px;">
+        <li>Bold typographic hero section</li>
+        <li>Minimal editorial layout</li>
+        <li>Strong visual hierarchy</li>
+        <li>Advanced smooth animations</li>
+        <li>Clean case study showcase</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span class="footer-brand">Aureon Studio</span>
+    <span>Confidential — Legal Syndicate Advisory Pvt. Ltd.</span>
+    <span>Page 7</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SECTION 5 — WEBSITE FLOW & STRUCTURE
+     ═══════════════════════════════════════════════════════════════ -->
+<div class="page page-break" style="position: relative;">
+  <span class="section-number">05</span>
+  <span class="section-label">Section 05</span>
+  <h2>Website Flow &amp; <span class="gold-text">Structure</span></h2>
+  <p>The proposed site architecture below ensures every visitor can quickly find the information they need and convert into a consultation request.</p>
+  <hr class="gold-line">
+
+  <div class="page-structure">
+    <div class="page-entry no-break">
+      <h4>Home</h4>
+      <ul class="dash-list">
+        <li>Hero with firm positioning headline</li>
+        <li>Practice areas overview</li>
+        <li>Why choose Syndicate section</li>
+        <li>Founder / managing director highlight</li>
+        <li>Testimonials</li>
+        <li>CTA — Book a Consultation</li>
+      </ul>
+    </div>
+
+    <div class="page-entry no-break">
+      <h4>About</h4>
+      <ul class="dash-list">
+        <li>Firm history and founding story</li>
+        <li>Mission and values</li>
+        <li>Full team section</li>
+        <li>CSR and pro bono commitment</li>
+      </ul>
+    </div>
+
+    <div class="page-entry no-break">
+      <h4>Services</h4>
+      <ul class="dash-list">
+        <li>Individual page or section per practice area: Criminal Law, Civil Law, Corporate Law, Matrimonial, Cyber Crime, Real Estate, Consumer Protection, IP &amp; Trademark, Tax &amp; NCLT, Environment Law</li>
+        <li>Each service includes: what it covers, how Syndicate approaches it, common cases handled, and CTA to book a consultation</li>
+      </ul>
+    </div>
+
+    <div class="page-entry no-break">
+      <h4>Consultation Booking</h4>
+      <ul class="dash-list">
+        <li>Structured intake form: client name, contact, type of legal matter (dropdown), brief case description, preferred contact method, preferred time for callback</li>
+        <li>On submit: automated WhatsApp message sent to legal team with all details pre-filled</li>
+      </ul>
+    </div>
+
+    <div class="page-entry no-break">
+      <h4>Blog / Insights</h4>
+      <ul class="dash-list">
+        <li>Clean article layout</li>
+        <li>Fully secured — no third-party plugins</li>
+        <li>Categories by practice area</li>
+      </ul>
+    </div>
+
+    <div class="page-entry no-break">
+      <h4>Contact</h4>
+      <ul class="dash-list">
+        <li>All office locations listed cleanly</li>
+        <li>Click-to-call phone numbers</li>
+        <li>Email and WhatsApp links</li>
+        <li>Contact form with case type selector</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span class="footer-brand">Aureon Studio</span>
+    <span>Confidential — Legal Syndicate Advisory Pvt. Ltd.</span>
+    <span>Page 8</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SECTION 6 — AI INTEGRATION
+     ═══════════════════════════════════════════════════════════════ -->
+<div class="page page-break" style="position: relative;">
+  <span class="section-number">06</span>
+  <span class="section-label">Section 06</span>
+  <h2>Phase 2: <span class="gold-text">AI Integration</span></h2>
+  <p>This is an optional add-on available after the website is live. It does not affect Phase 1 delivery or timeline.</p>
+  <hr class="gold-line">
+
+  <div class="ai-feature no-break">
+    <h4>24/7 Client Triage</h4>
+    <p>Greets every visitor and asks what type of legal matter they need help with. Qualifies leads before a lawyer gets involved. No missed enquiries outside business hours.</p>
+  </div>
+
+  <div class="ai-feature no-break">
+    <h4>Legal FAQ Engine</h4>
+    <p>Trained on common Indian legal procedures relevant to the firm's practice areas — FIR process, trademark filing, consumer complaints, NCLT procedures, and more. Provides instant accurate answers with an automatic disclaimer that responses are informational and not final legal advice.</p>
+  </div>
+
+  <div class="ai-feature no-break">
+    <h4>Intelligent Lead Routing</h4>
+    <p>When a visitor has an urgent or serious case, the AI collects full contact details and sends an instant structured WhatsApp notification to the legal team — replacing the basic Chaty button with intelligent and organised case routing.</p>
+  </div>
+
+  <div class="ai-feature no-break">
+    <h4>Multi-Language Support</h4>
+    <p>The AI responds in both English and Hindi, making the firm's services accessible to a significantly wider client base across all 12 cities of operation.</p>
+  </div>
+
+  <div class="page-footer">
+    <span class="footer-brand">Aureon Studio</span>
+    <span>Confidential — Legal Syndicate Advisory Pvt. Ltd.</span>
+    <span>Page 9</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SECTION 7 — DELIVERY TIMELINE
+     ═══════════════════════════════════════════════════════════════ -->
+<div class="page page-break" style="position: relative;">
+  <span class="section-number">07</span>
+  <span class="section-label">Section 07</span>
+  <h2>Delivery <span class="gold-text">Timeline</span></h2>
+  <hr class="gold-line">
+
+  <h3 style="margin-bottom: 18px;">Phase 1 — Website Rebuild</h3>
+
+  <div class="timeline-item no-break">
+    <h4>Week 1 — Discovery &amp; Design</h4>
+    <p>Deep-dive session to understand the firm's full requirements</p>
+    <p>Full Figma design presented for approval</p>
+    <p>Client reviews and approves before any development begins</p>
+  </div>
+
+  <div class="timeline-item no-break">
+    <h4>Week 2–3 — Development</h4>
+    <p>Full custom-coded build</p>
+    <p>All pages developed and tested</p>
+    <p>Consultation booking flow integrated</p>
+    <p>WhatsApp notification system set up</p>
+    <p>Mobile responsive on all devices</p>
+    <p>SEO foundations implemented</p>
+  </div>
+
+  <div class="timeline-item no-break">
+    <h4>Week 4 — Testing &amp; Launch</h4>
+    <p>Cross-browser and device testing</p>
+    <p>Client review and final revisions</p>
+    <p>Domain migration and go-live</p>
+    <p>Old WordPress site decommissioned</p>
+  </div>
+
+  <div class="timeline-item no-break">
+    <h4>Post-Launch</h4>
+    <p>30 days free support included</p>
+    <p>Any bugs or tweaks handled at no cost</p>
+  </div>
+
+  <hr class="gold-line">
+
+  <h3 style="margin-bottom: 10px;">Phase 2 — AI Integration <span style="font-size: 0.7em; color: var(--text-muted);">(Optional)</span></h3>
+  <ul class="check-list">
+    <li>Scoped and quoted separately</li>
+    <li>Can begin immediately after Phase 1 launch or at any point in the future</li>
+    <li>Full setup handled by our AI specialist</li>
+    <li>Zero disruption to live website</li>
+  </ul>
+
+  <div class="page-footer">
+    <span class="footer-brand">Aureon Studio</span>
+    <span>Confidential — Legal Syndicate Advisory Pvt. Ltd.</span>
+    <span>Page 10</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SECTION 8 — INVESTMENT
+     ═══════════════════════════════════════════════════════════════ -->
+<div class="page page-break" style="position: relative;">
+  <span class="section-number">08</span>
+  <span class="section-label">Section 08</span>
+  <h2><span class="gold-text">Investment</span></h2>
+  <hr class="gold-line">
+
+  <div class="invest-box no-break">
+    <h3>Phase 1 — Website Rebuild</h3>
+    <div class="invest-detail">
+      <span class="label">Price</span>
+      <span class="value">To be confirmed after discovery call</span>
+    </div>
+    <div class="invest-detail">
+      <span class="label">Deposit to begin</span>
+      <span class="value">5% upfront</span>
+    </div>
+    <div class="invest-detail">
+      <span class="label">Balance</span>
+      <span class="value">Due on final delivery and client approval</span>
+    </div>
+    <div class="invest-detail">
+      <span class="label">Delivery</span>
+      <span class="value">3–4 weeks</span>
+    </div>
+    <div class="invest-detail">
+      <span class="label">Support</span>
+      <span class="value">30 days free post-launch</span>
+    </div>
+  </div>
+
+  <div class="invest-box no-break">
+    <h3>Phase 2 — AI Assistant <span style="font-size: 0.7em; color: var(--text-muted);">(Optional)</span></h3>
+    <div class="invest-detail">
+      <span class="label">Price</span>
+      <span class="value">Custom quote based on requirements</span>
+    </div>
+    <div class="invest-detail">
+      <span class="label">Specialist</span>
+      <span class="value">Aabaan Rahil Ghaffar, AI Lead</span>
+    </div>
+  </div>
+
+  <div style="margin-top: 30px;">
+    <p style="font-size: 0.85em; color: var(--text-muted);"><strong style="color: var(--gold-primary);">Payment methods accepted:</strong> Bank transfer, all major digital methods</p>
+  </div>
+
+  <div class="page-footer">
+    <span class="footer-brand">Aureon Studio</span>
+    <span>Confidential — Legal Syndicate Advisory Pvt. Ltd.</span>
+    <span>Page 11</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     CLOSING PAGE
+     ═══════════════════════════════════════════════════════════════ -->
+<div class="page closing-page" style="position: relative;">
+  <div class="cover-logo" style="margin-bottom: 80px;">
+    <span class="gold-gradient-text">AUREON STUDIO</span><span class="logo-dot"></span>
+  </div>
+
+  <div class="closing-quote">
+    We believe Legal Syndicate Advisory deserves a digital presence that matches the authority and credibility of the work you do. This proposal is our commitment to making that happen. We are ready to begin the moment you are.
+  </div>
+
+  <div class="cover-divider"></div>
+
+  <div class="closing-founders">
+    <p><span class="name">Shubhan Naik</span><br><span class="role">Co-Founder &amp; CEO</span></p>
+    <br>
+    <p><span class="name">Aabaan Rahil Ghaffar</span><br><span class="role">Co-Founder &amp; CTO</span></p>
+    <br>
+    <p><span class="name">Abhay Shetty</span><br><span class="role">Co-Founder &amp; CSO</span></p>
+  </div>
+
+  <div class="closing-contact">
+    <strong style="color: var(--gold-primary);">Website:</strong> aureon-studio-olive.vercel.app<br>
+    <strong style="color: var(--gold-primary);">Email:</strong> hello@aureon.studio<br>
+    <strong style="color: var(--gold-primary);">WhatsApp:</strong> +971 52 9910516
+  </div>
+
+  <div class="closing-brand">Aureon Studio — Dubai, UAE</div>
+</div>
+
+</body>
+</html>

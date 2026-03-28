@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Progress — Legal Syndicate Advisory | Aureon Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --bg2: #12121a;
+      --card: #1a1a25;
+      --card2: #22222f;
+      --gold: #c9a84c;
+      --gold-light: #e8d48b;
+      --gold-grad: linear-gradient(135deg, #c9a84c, #e8d48b, #c9a84c);
+      --text: #f0ece2;
+      --text2: #a0a0b0;
+      --muted: #6a6a7a;
+      --border: rgba(201,168,76,0.15);
+      --border-gold: rgba(201,168,76,0.4);
+      --green: #4caf50;
+      --green-bg: rgba(76,175,80,0.08);
+      --green-border: rgba(76,175,80,0.25);
+      --blue: #64b5f6;
+      --blue-bg: rgba(100,181,246,0.08);
+      --blue-border: rgba(100,181,246,0.25);
+      --yellow: #f0c040;
+      --yellow-bg: rgba(240,192,64,0.08);
+      --yellow-border: rgba(240,192,64,0.25);
+      --gray-bg: rgba(106,106,122,0.08);
+      --gray-border: rgba(106,106,122,0.2);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    /* ── Header ── */
+    .header {
+      padding: 28px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: rgba(10,10,15,0.92);
+      backdrop-filter: blur(20px);
+      z-index: 100;
+    }
+    .header-left { display: flex; align-items: center; gap: 20px; }
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1em;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      background: var(--gold-grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .header-divider {
+      width: 1px; height: 20px;
+      background: var(--border);
+    }
+    .header-client {
+      font-size: 0.82em;
+      color: var(--text2);
+    }
+    .back-link {
+      font-size: 0.82em;
+      color: var(--gold);
+      text-decoration: none;
+      display: flex; align-items: center; gap: 6px;
+      transition: opacity 0.3s;
+    }
+    .back-link:hover { opacity: 0.7; }
+
+    /* ── Main ── */
+    .main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 50px 30px 80px;
+    }
+
+    /* ── Section Header ── */
+    .section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65em;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2em;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .page-subtitle {
+      color: var(--text2);
+      font-size: 0.92em;
+      font-weight: 300;
+      margin-bottom: 40px;
+    }
+    .gold-text { color: var(--gold); }
+
+    /* ── Stats Bar ── */
+    .stats-bar {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+      margin-bottom: 50px;
+    }
+    .stat-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+    }
+    .stat-value {
+      font-family: 'Playfair Display', serif;
+      font-size: 2em;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .stat-value.gold { color: var(--gold); }
+    .stat-value.green { color: var(--green); }
+    .stat-value.blue { color: var(--blue); }
+    .stat-label {
+      font-size: 0.72em;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    /* ── Overall Progress Bar ── */
+    .progress-section { margin-bottom: 50px; }
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .progress-header h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1em;
+      font-weight: 600;
+    }
+    .progress-percent {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85em;
+      color: var(--gold);
+      font-weight: 600;
+    }
+    .progress-bar-track {
+      width: 100%;
+      height: 8px;
+      background: var(--card);
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: var(--gold-grad);
+      border-radius: 10px;
+      transition: width 1s ease;
+    }
+
+    /* ── Phase Section ── */
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5em;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .phase-subtitle {
+      color: var(--text2);
+      font-size: 0.85em;
+      margin-bottom: 20px;
+    }
+
+    /* ── Timeline ── */
+    .timeline { margin-bottom: 50px; }
+    .timeline-week {
+      margin-bottom: 24px;
+    }
+    .week-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .week-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68em;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 20px;
+    }
+    .week-badge.completed { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); }
+    .week-badge.in-progress { background: var(--blue-bg); color: var(--blue); border: 1px solid var(--blue-border); }
+    .week-badge.upcoming { background: var(--gray-bg); color: var(--muted); border: 1px solid var(--gray-border); }
+    .week-title {
+      font-weight: 600;
+      font-size: 0.95em;
+    }
+
+    /* ── Task List ── */
+    .task-list { list-style: none; padding: 0; }
+    .task-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 10px 16px;
+      border-radius: 8px;
+      margin-bottom: 4px;
+      transition: background 0.2s;
+    }
+    .task-item:hover { background: rgba(255,255,255,0.02); }
+    .task-check {
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      border: 2px solid var(--border);
+      flex-shrink: 0;
+      margin-top: 2px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.65em;
+    }
+    .task-check.done {
+      background: var(--green);
+      border-color: var(--green);
+      color: #fff;
+    }
+    .task-check.active {
+      border-color: var(--blue);
+      background: var(--blue-bg);
+      animation: pulse 2s infinite;
+    }
+    .task-check.pending {
+      border-color: var(--gray-border);
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(100,181,246,0.3); }
+      50% { box-shadow: 0 0 0 6px rgba(100,181,246,0); }
+    }
+    .task-content { flex: 1; }
+    .task-name {
+      font-size: 0.9em;
+      font-weight: 500;
+    }
+    .task-name.done-text { color: var(--text2); text-decoration: line-through; text-decoration-color: var(--muted); }
+    .task-name.active-text { color: var(--blue); }
+    .task-name.pending-text { color: var(--muted); }
+    .task-date {
+      font-size: 0.72em;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    /* ── Activity Log ── */
+    .activity-section { margin-bottom: 50px; }
+    .activity-section h2 { margin-bottom: 16px; }
+    .activity-log { list-style: none; padding: 0; }
+    .activity-item {
+      display: flex;
+      gap: 14px;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+    }
+    .activity-date {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72em;
+      color: var(--muted);
+      width: 90px;
+      flex-shrink: 0;
+      padding-top: 2px;
+    }
+    .activity-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--gold);
+      flex-shrink: 0;
+      margin-top: 6px;
+    }
+    .activity-text {
+      font-size: 0.88em;
+      color: var(--text2);
+    }
+    .activity-text strong { color: var(--text); }
+
+    /* ── Contact CTA ── */
+    .contact-cta {
+      background: var(--card);
+      border: 1px solid var(--border-gold);
+      border-radius: 12px;
+      padding: 32px;
+      text-align: center;
+    }
+    .contact-cta h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2em;
+      margin-bottom: 8px;
+    }
+    .contact-cta p {
+      color: var(--text2);
+      font-size: 0.88em;
+      margin-bottom: 20px;
+    }
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .contact-btn {
+      padding: 10px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 0.85em;
+      font-weight: 500;
+      transition: all 0.3s;
+    }
+    .contact-btn.whatsapp {
+      background: #25d366;
+      color: #fff;
+    }
+    .contact-btn.whatsapp:hover { background: #1fb855; transform: translateY(-1px); }
+    .contact-btn.email {
+      background: var(--card2);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .contact-btn.email:hover { border-color: var(--border-gold); transform: translateY(-1px); }
+
+    /* ── Footer ── */
+    .footer {
+      text-align: center;
+      padding: 30px;
+      font-size: 0.72em;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+    .footer a { color: var(--gold); text-decoration: none; }
+
+    /* ── Responsive ── */
+    @media (max-width: 700px) {
+      .header { padding: 16px 20px; flex-direction: column; gap: 10px; }
+      .main { padding: 30px 16px 60px; }
+      .stats-bar { grid-template-columns: repeat(2, 1fr); }
+      h1 { font-size: 1.6em; }
+      .activity-date { width: 70px; font-size: 0.65em; }
+    }
+    @media (max-width: 440px) {
+      .stats-bar { grid-template-columns: 1fr 1fr; gap: 8px; }
+      .stat-card { padding: 14px; }
+      .stat-value { font-size: 1.5em; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-left">
+    <div class="logo">AUREON STUDIO</div>
+    <div class="header-divider"></div>
+    <span class="header-client">Legal Syndicate Advisory Pvt. Ltd.</span>
+  </div>
+  <a href="index.html" class="back-link">← Back to Portal</a>
+</header>
+
+<!-- Main -->
+<main class="main">
+
+  <p class="section-label">Project Dashboard</p>
+  <h1>Project <span class="gold-text">Progress</span></h1>
+  <p class="page-subtitle">Real-time status of your website modernization project</p>
+
+  <!-- Stats Bar -->
+  <div class="stats-bar">
+    <div class="stat-card">
+      <div class="stat-value gold">Phase 1</div>
+      <div class="stat-label">Current Phase</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value green">1 / 8</div>
+      <div class="stat-label">Tasks Completed</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value blue">Week 1</div>
+      <div class="stat-label">Current Week</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-value" style="color: var(--text);">4 Weeks</div>
+      <div class="stat-label">Est. Delivery</div>
+    </div>
+  </div>
+
+  <!-- Overall Progress -->
+  <div class="progress-section">
+    <div class="progress-header">
+      <h3>Overall Progress</h3>
+      <span class="progress-percent">12%</span>
+    </div>
+    <div class="progress-bar-track">
+      <div class="progress-bar-fill" style="width: 12%;"></div>
+    </div>
+  </div>
+
+  <!-- Phase 1 Timeline -->
+  <h2>Phase 1 — <span class="gold-text">Website Rebuild</span></h2>
+  <p class="phase-subtitle">Custom-coded website for Legal Syndicate Advisory</p>
+
+  <div class="timeline">
+
+    <!-- Week 0 — Pre-Project -->
+    <div class="timeline-week">
+      <div class="week-header">
+        <span class="week-badge completed">✓ Completed</span>
+        <span class="week-title">Pre-Project — Discovery & Audit</span>
+      </div>
+      <ul class="task-list">
+        <li class="task-item">
+          <div class="task-check done">✓</div>
+          <div class="task-content">
+            <div class="task-name done-text">Full website audit of synlegal.in</div>
+            <div class="task-date">Completed Mar 28, 2026</div>
+          </div>
+        </li>
+        <li class="task-item">
+          <div class="task-check done">✓</div>
+          <div class="task-content">
+            <div class="task-name done-text">Proposal document prepared & delivered</div>
+            <div class="task-date">Completed Mar 28, 2026</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Week 1 -->
+    <div class="timeline-week">
+      <div class="week-header">
+        <span class="week-badge upcoming">Upcoming</span>
+        <span class="week-title">Week 1 — Discovery & Design</span>
+      </div>
+      <ul class="task-list">
+        <li class="task-item">
+          <div class="task-check pending"></div>
+          <div class="task-content">
+            <div class="task-name pending-text">Deep-dive discovery call with client</div>
+            <div class="task-date">Scheduled upon approval</div>
+          </div>
+        </li>
+        <li class="task-item">
+          <div class="task-check pending"></div>
+          <div class="task-content">
+            <div class="task-name pending-text">Full Figma design — all pages</div>
+            <div class="task-date">Pending</div>
+          </div>
+        </li>
+        <li class="task-item">
+          <div class="task-check pending"></div>
+          <div class="task-content">
+            <div class="task-name pending-text">Client design review & approval</div>
+            <div class="task-date">Pending</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Week 2–3 -->
+    <div class="timeline-week">
+      <div class="week-header">
+        <span class="week-badge upcoming">Upcoming</span>
+        <span class="week-title">Week 2–3 — Development</span>
+      </div>
+      <ul class="task-list">
+        <li class="task-item">
+          <div class="task-check pending"></div>
+          <div class="task-content">
+            <div class="task-name pending-text">Custom-coded build — all pages</div>
+            <div class="task-date">Pending</div>
+          </div>
+        </li>
+        <li class="task-item">
+          <div class="task-check pending"></div>
+          <div class="task-content">
+            <div class="task-name pending-text">Consultation booking flow integration</div>
+            <div class="task-date">Pending</div>
+          </div>
+        </li>
+        <li class="task-item">
+          <div class="task-check pending"></div>
+          <div class="task-content">
+            <div class="task-name pending-text">WhatsApp notification system</div>
+            <div class="task-date">Pending</div>
+          </div>
+        </li>
+        <li class="task-item">
+          <div class="task-check pending"></div>
+          <div class="task-content">
+            <div class="task-name pending-text">Mobile responsive + SEO foundations</div>
+            <div class="task-date">Pending</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Week 4 -->
+    <div class="timeline-week">
+      <div class="week-header">
+        <span class="week-badge upcoming">Upcoming</span>
+        <span class="week-title">Week 4 — Testing & Launch</span>
+      </div>
+      <ul class="task-list">
+        <li class="task-item">
+          <div class="task-check pending"></div>
+          <div class="task-content">
+            <div class="task-name pending-text">Cross-browser and device testing</div>
+            <div class="task-date">Pending</div>
+          </div>
+        </li>
+        <li class="task-item">
+          <div class="task-check pending"></div>
+          <div class="task-content">
+            <div class="task-name pending-text">Client review & final revisions</div>
+            <div class="task-date">Pending</div>
+          </div>
+        </li>
+        <li class="task-item">
+          <div class="task-check pending"></div>
+          <div class="task-content">
+            <div class="task-name pending-text">Domain migration & go-live</div>
+            <div class="task-date">Pending</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Activity Log -->
+  <div class="activity-section">
+    <h2>Activity <span class="gold-text">Log</span></h2>
+    <ul class="activity-log">
+      <li class="activity-item">
+        <span class="activity-date">Mar 28</span>
+        <div class="activity-dot"></div>
+        <div class="activity-text"><strong>Project portal created</strong> — Live progress dashboard deployed for client access.</div>
+      </li>
+      <li class="activity-item">
+        <span class="activity-date">Mar 28</span>
+        <div class="activity-dot"></div>
+        <div class="activity-text"><strong>Full proposal delivered</strong> — Website evaluation, 3 design concepts, AI integration strategy, and pricing.</div>
+      </li>
+      <li class="activity-item">
+        <span class="activity-date">Mar 28</span>
+        <div class="activity-dot"></div>
+        <div class="activity-text"><strong>Security audit completed</strong> — Active SEO spam injection detected on synlegal.in blog and for-lawyers pages.</div>
+      </li>
+      <li class="activity-item">
+        <span class="activity-date">Mar 28</span>
+        <div class="activity-dot"></div>
+        <div class="activity-text"><strong>Technical audit completed</strong> — WordPress 6.2.9, Apache server, Chaty & Disclaimer plugins identified.</div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Phase 2 Preview -->
+  <div style="margin-bottom: 50px;">
+    <h2>Phase 2 — <span class="gold-text">AI Integration</span> <span style="font-size: 0.5em; color: var(--muted); vertical-align: middle;">(Optional — After Launch)</span></h2>
+    <p class="phase-subtitle">Scoped separately once Phase 1 is live</p>
+    <div style="background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 22px 26px;">
+      <ul class="task-list" style="opacity: 0.5;">
+        <li class="task-item">
+          <div class="task-check pending"></div>
+          <div class="task-content"><div class="task-name pending-text">24/7 AI client triage chatbot</div></div>
+        </li>
+        <li class="task-item">
+          <div class="task-check pending"></div>
+          <div class="task-content"><div class="task-name pending-text">Legal FAQ engine (English + Hindi)</div></div>
+        </li>
+        <li class="task-item">
+          <div class="task-check pending"></div>
+          <div class="task-content"><div class="task-name pending-text">Intelligent WhatsApp lead routing</div></div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Contact CTA -->
+  <div class="contact-cta">
+    <h3>Questions About the Project?</h3>
+    <p>Reach out to us anytime — we're always available.</p>
+    <div class="contact-links">
+      <a href="https://wa.me/971529910516" class="contact-btn whatsapp">💬 WhatsApp Us</a>
+      <a href="mailto:hello@aureon.studio" class="contact-btn email">✉ hello@aureon.studio</a>
+    </div>
+  </div>
+
+</main>
+
+<!-- Footer -->
+<div class="footer">
+  <a href="https://aureon-studio-olive.vercel.app">Aureon Studio</a> · Dubai, UAE<br>
+  © 2026 Aureon Studio. All rights reserved.
+</div>
+
+</body>
+</html>
