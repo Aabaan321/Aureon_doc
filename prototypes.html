@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Design Prototypes — Legal Syndicate Advisory | Aureon Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --bg2: #12121a;
+      --card: #1a1a25;
+      --card2: #22222f;
+      --gold: #c9a84c;
+      --gold-light: #e8d48b;
+      --gold-grad: linear-gradient(135deg, #c9a84c, #e8d48b, #c9a84c);
+      --text: #f0ece2;
+      --text2: #a0a0b0;
+      --muted: #6a6a7a;
+      --border: rgba(201,168,76,0.15);
+      --border-gold: rgba(201,168,76,0.4);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      line-height: 1.7;
+      overflow: hidden;
+    }
+
+    /* ── Lock Screen ── */
+    .lock-screen {
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: var(--bg);
+      z-index: 9999;
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column;
+      transition: opacity 0.3s ease;
+    }
+    .lock-screen::before {
+      content: '';
+      position: absolute; top: 30%; left: 50%;
+      width: 600px; height: 600px;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .lock-box {
+      text-align: center;
+      max-width: 420px;
+      padding: 40px;
+      position: relative;
+      z-index: 1;
+    }
+    .lock-icon {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+    }
+    .lock-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2em; font-weight: 700;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      background: var(--gold-grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 8px;
+    }
+    .lock-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6em; font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .lock-sub {
+      color: var(--muted); font-size: 0.85em;
+      margin-bottom: 30px;
+    }
+    .lock-input {
+      display: block; width: 100%;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 8px; padding: 14px 18px;
+      color: var(--text); font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9em; outline: none;
+      margin-bottom: 12px;
+      transition: border-color 0.3s;
+    }
+    .lock-input:focus { border-color: var(--gold); }
+    .lock-input::placeholder { color: var(--muted); }
+    .lock-btn {
+      width: 100%; padding: 14px;
+      background: var(--gold-grad); color: var(--bg);
+      border: none; border-radius: 8px;
+      font-size: 0.92em; font-weight: 600;
+      cursor: pointer; transition: transform 0.2s, box-shadow 0.3s;
+      margin-top: 6px;
+    }
+    .lock-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(201,168,76,0.3);
+    }
+    .lock-error {
+      display: none; color: #ff4d4d;
+      font-size: 0.82em; margin-top: 12px;
+    }
+    .lock-back {
+      display: inline-block; margin-top: 20px;
+      color: var(--muted); font-size: 0.82em;
+      text-decoration: none; transition: color 0.3s;
+    }
+    .lock-back:hover { color: var(--gold); }
+
+    /* ── Header ── */
+    .header {
+      padding: 28px 40px;
+      display: flex; justify-content: space-between; align-items: center;
+      border-bottom: 1px solid var(--border);
+      position: sticky; top: 0;
+      background: rgba(10,10,15,0.92);
+      backdrop-filter: blur(20px);
+      z-index: 100;
+    }
+    .header-left { display: flex; align-items: center; gap: 20px; }
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1em; font-weight: 700;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      background: var(--gold-grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .header-divider { width: 1px; height: 20px; background: var(--border); }
+    .header-client { font-size: 0.82em; color: var(--text2); }
+    .back-link {
+      font-size: 0.82em; color: var(--gold);
+      text-decoration: none; transition: opacity 0.3s;
+    }
+    .back-link:hover { opacity: 0.8; }
+
+    /* ── Main Content ── */
+    main {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 50px 40px 80px;
+    }
+    .page-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7em; letter-spacing: 0.3em;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 8px;
+    }
+    .page-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2em; font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .page-desc {
+      color: var(--text2); font-size: 0.95em;
+      max-width: 600px; margin-bottom: 40px;
+    }
+
+    /* ── Concept Cards ── */
+    .concepts-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+    .concept-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 36px 32px;
+      display: flex; align-items: flex-start; gap: 28px;
+      transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+      text-decoration: none; color: inherit;
+    }
+    .concept-card:hover {
+      border-color: var(--border-gold);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(201,168,76,0.08);
+    }
+    .concept-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 3em; font-weight: 800;
+      background: var(--gold-grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      line-height: 1;
+      min-width: 60px;
+    }
+    .concept-info { flex: 1; }
+    .concept-badge {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65em; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 4px 14px; border-radius: 20px;
+      margin-bottom: 12px;
+    }
+    .badge-navy { background: rgba(26,26,46,0.6); color: #C6A84B; border: 1px solid rgba(198,168,75,0.3); }
+    .badge-blue { background: rgba(46,125,158,0.1); color: #2E7D9E; border: 1px solid rgba(46,125,158,0.3); }
+    .badge-gold { background: rgba(212,168,67,0.1); color: #D4A843; border: 1px solid rgba(212,168,67,0.3); }
+    .concept-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4em; font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .concept-card p {
+      font-size: 0.88em; color: var(--text2);
+      margin-bottom: 14px;
+    }
+    .concept-tags {
+      display: flex; flex-wrap: wrap; gap: 8px;
+    }
+    .tag {
+      font-size: 0.7em; font-weight: 500;
+      padding: 4px 12px; border-radius: 6px;
+      background: var(--card2); color: var(--muted);
+      border: 1px solid rgba(255,255,255,0.04);
+    }
+    .concept-arrow {
+      font-size: 1.4em; color: var(--gold);
+      align-self: center; margin-left: auto;
+      transition: transform 0.3s;
+    }
+    .concept-card:hover .concept-arrow { transform: translateX(6px); }
+
+    /* ── Footer ── */
+    .footer {
+      text-align: center;
+      padding: 30px;
+      font-size: 0.75em;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+    .footer a { color: var(--gold); text-decoration: none; }
+
+    /* ── Mobile ── */
+    @media (max-width: 640px) {
+      main { padding: 30px 20px 60px; }
+      .header { padding: 18px 20px; }
+      .page-title { font-size: 1.6em; }
+      .concept-card { flex-direction: column; gap: 16px; padding: 24px 22px; }
+      .concept-num { font-size: 2.2em; }
+      .concept-card h3 { font-size: 1.15em; }
+      .concept-arrow { align-self: flex-end; }
+      .lock-box { padding: 30px 20px; }
+      .lock-title { font-size: 1.3em; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Lock Screen ── -->
+<div class="lock-screen" id="lock-screen">
+  <div class="lock-box">
+    <div class="lock-icon">🔐</div>
+    <div class="lock-logo">AUREON STUDIO</div>
+    <h2 class="lock-title">Design Prototypes</h2>
+    <p class="lock-sub">Enter your Client ID and access code to view the website design concepts.</p>
+    <input type="text" class="lock-input" id="clientId" placeholder="Client ID (e.g. LSA-2026)" autocomplete="off">
+    <input type="password" class="lock-input" id="accessCode" placeholder="10-Digit Access Code" autocomplete="off" maxlength="10">
+    <button class="lock-btn" onclick="unlockPrototypes()">View Prototypes</button>
+    <p class="lock-error" id="lockError">⚠ Invalid credentials. Please check your Client ID and access code.</p>
+    <a href="index.html" class="lock-back">← Back to Portal</a>
+  </div>
+</div>
+
+<!-- ── Header ── -->
+<header class="header">
+  <div class="header-left">
+    <div class="logo">Aureon Studio</div>
+    <div class="header-divider"></div>
+    <div class="header-client">Legal Syndicate Advisory — Design Concepts</div>
+  </div>
+  <a href="index.html" class="back-link">← Back to Portal</a>
+</header>
+
+<!-- ── Main ── -->
+<main>
+  <p class="page-label">Design Prototypes</p>
+  <h1 class="page-title">Website Design Concepts</h1>
+  <p class="page-desc">Below are three unique design directions for the new Legal Syndicate Advisory website. Each concept represents a different visual identity and user experience approach. Click any concept to explore the full prototype.</p>
+
+  <div class="concepts-grid">
+
+    <!-- Concept 1 -->
+    <a href="concept-1.html" class="concept-card">
+      <div class="concept-num">01</div>
+      <div class="concept-info">
+        <span class="concept-badge badge-navy">Recommended</span>
+        <h3>The Corporate Elite</h3>
+        <p>Premium, authoritative, luxury law firm aesthetic. Inspired by top global firms like Clifford Chance and Linklaters. White background with champagne gold accents and deep navy typography.</p>
+        <div class="concept-tags">
+          <span class="tag">Playfair Display</span>
+          <span class="tag">White + Gold + Navy</span>
+          <span class="tag">Luxury Feel</span>
+        </div>
+      </div>
+      <span class="concept-arrow">→</span>
+    </a>
+
+    <!-- Concept 2 -->
+    <a href="concept-2.html" class="concept-card">
+      <div class="concept-num">02</div>
+      <div class="concept-info">
+        <span class="concept-badge badge-blue">Clean & Modern</span>
+        <h3>Trust & Clarity</h3>
+        <p>Clean, approachable, highly readable design. Feels like a modern government portal meets startup. Steel blue with amber highlights — professional yet welcoming.</p>
+        <div class="concept-tags">
+          <span class="tag">Inter</span>
+          <span class="tag">White + Blue + Amber</span>
+          <span class="tag">Approachable</span>
+        </div>
+      </div>
+      <span class="concept-arrow">→</span>
+    </a>
+
+    <!-- Concept 3 -->
+    <a href="concept-3.html" class="concept-card">
+      <div class="concept-num">03</div>
+      <div class="concept-info">
+        <span class="concept-badge badge-gold">Editorial Minimal</span>
+        <h3>Modern Syndicate</h3>
+        <p>Forward-thinking, minimal, editorial design. Feels like a modern tech company's website reimagined for law. Bold Sora typography, warm gold accents, and clean white space.</p>
+        <div class="concept-tags">
+          <span class="tag">Sora ExtraBold</span>
+          <span class="tag">Near-White + Gold</span>
+          <span class="tag">Minimal</span>
+        </div>
+      </div>
+      <span class="concept-arrow">→</span>
+    </a>
+
+  </div>
+</main>
+
+<!-- ── Footer ── -->
+<div class="footer">
+  <a href="https://aureon-studio-olive.vercel.app">Aureon Studio</a> · Dubai, UAE<br>
+  © 2026 Aureon Studio. All rights reserved.
+</div>
+
+<script>
+  function unlockPrototypes() {
+    const cid = document.getElementById('clientId').value.trim();
+    const code = document.getElementById('accessCode').value.trim();
+
+    // Same Client ID, complex 10-digit password
+    if (cid === 'LSA-2026' && code === '7Kx3mQ9pL2') {
+      document.getElementById('lock-screen').style.opacity = '0';
+      setTimeout(() => {
+        document.getElementById('lock-screen').style.display = 'none';
+        document.body.style.overflow = 'auto';
+      }, 300);
+    } else {
+      const errorMsg = document.getElementById('lockError');
+      errorMsg.style.display = 'block';
+      const inputs = document.querySelectorAll('.lock-input');
+      inputs.forEach(input => {
+        input.style.border = '1px solid #ff4d4d';
+        setTimeout(() => input.style.border = '1px solid var(--border)', 2000);
+      });
+    }
+  }
+
+  // Allow pressing Enter to submit
+  document.getElementById('accessCode').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') unlockPrototypes();
+  });
+</script>
+</body>
+</html>
