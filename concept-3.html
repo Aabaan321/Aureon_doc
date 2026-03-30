@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Legal Syndicate Advisory — Modern Syndicate</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #FAFAFA;
+      --bg2: #F2F2F2;
+      --primary: #111111;
+      --accent: #D4A843;
+      --accent-light: #e0bc60;
+      --lines: #E0E0E0;
+      --text: #111111;
+      --muted: #888888;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Sora', sans-serif; color: var(--text); background: var(--bg); line-height: 1.7; }
+    h1,h2,h3,h4 { font-family: 'Sora', sans-serif; font-weight: 800; line-height: 1.15; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ── Concept Switcher ── */
+    .concept-switcher {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+      background: var(--primary);
+      display: flex; justify-content: center; align-items: center; gap: 8px;
+      padding: 10px 20px;
+    }
+    .concept-switcher a {
+      padding: 8px 22px; border-radius: 6px; font-size: 0.82em; font-weight: 600;
+      letter-spacing: 0.04em; transition: all 0.3s ease;
+    }
+    .concept-switcher a.active { background: var(--accent); color: var(--primary); }
+    .concept-switcher a:not(.active) {
+      color: rgba(255,255,255,0.6); border: 1px solid rgba(255,255,255,0.15);
+    }
+    .concept-switcher a:not(.active):hover { color: #fff; border-color: rgba(255,255,255,0.4); }
+
+    /* ── Navbar ── */
+    .navbar {
+      position: fixed; top: 48px; left: 0; right: 0; z-index: 999;
+      background: rgba(250,250,250,0.95); backdrop-filter: blur(12px);
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 18px 60px;
+      border-bottom: 1px solid var(--lines);
+      transition: box-shadow 0.4s ease;
+    }
+    .navbar.scrolled { box-shadow: 0 1px 12px rgba(0,0,0,0.04); }
+    .nav-logo { font-size: 1.3em; font-weight: 800; color: var(--primary); letter-spacing: -0.02em; }
+    .nav-links { display: flex; align-items: center; gap: 28px; }
+    .nav-links a { font-size: 0.82em; font-weight: 500; color: var(--muted); transition: color 0.3s; }
+    .nav-links a:hover { color: var(--primary); }
+    .nav-book { color: var(--accent) !important; font-weight: 600 !important; }
+    .mobile-toggle { display: none; cursor: pointer; font-size: 1.5em; color: var(--primary); }
+
+    /* ── Hero ── */
+    .hero {
+      margin-top: 120px; padding: 100px 60px 80px;
+      display: flex; align-items: center; gap: 60px;
+      max-width: 1280px; margin-left: auto; margin-right: auto;
+    }
+    .hero-content { flex: 1.2; }
+    .hero-content h1 { font-size: 4.8em; letter-spacing: -0.03em; margin-bottom: 24px; }
+    .hero-content h1 span { color: var(--accent); }
+    .hero-content p { font-size: 1em; color: var(--muted); max-width: 440px; margin-bottom: 35px; }
+    .btn-gold {
+      background: var(--accent); color: #fff; padding: 16px 36px;
+      border-radius: 8px; font-size: 0.88em; font-weight: 600; border: none; cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+    }
+    .btn-gold:hover { background: var(--accent-light); transform: translateY(-2px); }
+    .hero-visual {
+      flex: 1; display: flex; align-items: center; justify-content: center;
+      min-height: 400px;
+    }
+    .hero-icon {
+      width: 280px; height: 280px; border: 3px solid var(--accent);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      position: relative;
+    }
+    .hero-icon::before {
+      content: '⚖'; font-size: 6em; color: var(--accent); opacity: 0.6;
+    }
+    .hero-icon::after {
+      content: ''; position: absolute;
+      width: 340px; height: 340px; border: 1px dashed var(--lines);
+      border-radius: 50%;
+    }
+
+    /* ── Practice Areas (Alternating Rows) ── */
+    .practice-areas {
+      padding: 80px 60px; max-width: 1280px; margin: 0 auto;
+    }
+    .pa-label {
+      font-size: 0.72em; font-weight: 600; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 40px;
+    }
+    .pa-row {
+      display: flex; align-items: baseline; gap: 40px;
+      padding: 28px 0;
+      border-bottom: 1px solid var(--lines);
+      transition: background 0.3s;
+      cursor: default;
+    }
+    .pa-row:hover { background: rgba(212,168,67,0.04); }
+    .pa-num {
+      font-size: 2.8em; font-weight: 800; color: rgba(212,168,67,0.2);
+      min-width: 100px; letter-spacing: -0.02em;
+    }
+    .pa-name { font-size: 1.5em; font-weight: 700; flex: 1; }
+    .pa-desc { font-size: 0.88em; color: var(--muted); flex: 1; max-width: 340px; }
+
+    /* ── Stats ── */
+    .stats-section {
+      padding: 80px 60px; background: var(--bg2);
+    }
+    .stats-inner {
+      max-width: 1280px; margin: 0 auto;
+      display: flex; justify-content: space-around; text-align: center;
+    }
+    .stat-item {}
+    .stat-num { font-size: 3.6em; font-weight: 800; letter-spacing: -0.03em; color: var(--primary); }
+    .stat-label { font-size: 0.82em; color: var(--muted); margin-top: 4px; font-weight: 500; }
+
+    /* ── About Strip ── */
+    .about-strip {
+      padding: 80px 60px; max-width: 1280px; margin: 0 auto;
+      display: flex; gap: 60px; align-items: flex-start;
+    }
+    .about-quote {
+      flex: 1; font-size: 1.6em; font-weight: 700; line-height: 1.4;
+      color: var(--primary); position: relative; padding-left: 30px;
+      border-left: 4px solid var(--accent);
+    }
+    .about-text { flex: 1; }
+    .about-text p { font-size: 0.92em; color: var(--muted); margin-bottom: 14px; }
+
+    /* ── Blog Preview ── */
+    .blog-preview {
+      padding: 80px 60px; max-width: 1280px; margin: 0 auto;
+    }
+    .blog-label {
+      font-size: 0.72em; font-weight: 600; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 30px;
+    }
+    .blog-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+    }
+    .blog-card {
+      background: #fff; border: 1px solid var(--lines); border-radius: 10px;
+      padding: 28px 24px; transition: border-color 0.3s, transform 0.3s;
+    }
+    .blog-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+    .blog-tag {
+      display: inline-block; font-size: 0.68em; font-weight: 600;
+      color: var(--accent); background: rgba(212,168,67,0.08);
+      padding: 4px 12px; border-radius: 20px; margin-bottom: 14px;
+      text-transform: uppercase; letter-spacing: 0.1em;
+    }
+    .blog-card h4 { font-size: 1.05em; font-weight: 700; margin-bottom: 10px; line-height: 1.4; }
+    .blog-date { font-size: 0.78em; color: var(--muted); margin-bottom: 14px; }
+    .blog-link { font-size: 0.82em; font-weight: 600; color: var(--accent); }
+    .blog-link:hover { text-decoration: underline; }
+
+    /* ── Footer ── */
+    .footer {
+      border-top: 1px solid var(--lines);
+      padding: 28px 60px;
+      max-width: 1280px; margin: 0 auto;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 16px;
+    }
+    .footer-logo { font-weight: 800; font-size: 1em; color: var(--primary); }
+    .footer-links { display: flex; gap: 20px; }
+    .footer-links a { font-size: 0.78em; color: var(--muted); transition: color 0.3s; }
+    .footer-links a:hover { color: var(--accent); }
+    .footer-copy { font-size: 0.72em; color: var(--muted); }
+
+    /* ── Animations ── */
+    .fade-up { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── Mobile ── */
+    @media (max-width: 768px) {
+      .concept-switcher { padding: 8px 12px; gap: 4px; }
+      .concept-switcher a { padding: 6px 14px; font-size: 0.72em; }
+      .navbar { padding: 14px 24px; top: 42px; }
+      .nav-links { display: none; }
+      .mobile-toggle { display: block; }
+      .hero { flex-direction: column; padding: 60px 24px; margin-top: 100px; gap: 40px; }
+      .hero-content h1 { font-size: 2.8em; }
+      .hero-visual { min-height: 240px; }
+      .hero-icon { width: 180px; height: 180px; }
+      .hero-icon::before { font-size: 4em; }
+      .hero-icon::after { width: 220px; height: 220px; }
+      .practice-areas { padding: 50px 24px; }
+      .pa-row { flex-direction: column; gap: 8px; }
+      .pa-num { font-size: 1.8em; min-width: auto; }
+      .pa-name { font-size: 1.2em; }
+      .pa-desc { max-width: 100%; }
+      .stats-section { padding: 50px 24px; }
+      .stats-inner { flex-wrap: wrap; gap: 30px; }
+      .stat-item { flex: 1 1 45%; }
+      .stat-num { font-size: 2.4em; }
+      .about-strip { flex-direction: column; padding: 50px 24px; gap: 30px; }
+      .about-quote { font-size: 1.2em; }
+      .blog-preview { padding: 50px 24px; }
+      .blog-grid { grid-template-columns: 1fr; }
+      .footer { padding: 20px 24px; flex-direction: column; text-align: center; }
+      .footer-links { flex-wrap: wrap; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Concept Switcher ── -->
+<div class="concept-switcher">
+  <a href="concept-1.html">Concept 1 — Corporate Elite</a>
+  <a href="concept-2.html">Concept 2 — Trust & Clarity</a>
+  <a href="concept-3.html" class="active">Concept 3 — Modern Syndicate</a>
+</div>
+
+<!-- ── Navbar ── -->
+<nav class="navbar" id="navbar">
+  <div class="nav-logo">Legal Syndicate.</div>
+  <div class="nav-links">
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#lawyers">For Lawyers</a>
+    <a href="#blog">Blog</a>
+    <a href="#contact">Contact</a>
+    <a href="#" class="nav-book">Book Now</a>
+  </div>
+  <div class="mobile-toggle" onclick="document.querySelector('.nav-links').classList.toggle('show')">☰</div>
+</nav>
+
+<!-- ── Hero ── -->
+<section class="hero fade-up" id="home">
+  <div class="hero-content">
+    <h1>Legal Syndicate.<br><span>Advisory.</span></h1>
+    <p>India's forward-thinking legal advisory firm. Expert representation across criminal, corporate, civil, and family law — delivered with precision and clarity.</p>
+    <button class="btn-gold">Book a Consultation</button>
+  </div>
+  <div class="hero-visual">
+    <div class="hero-icon"></div>
+  </div>
+</section>
+
+<!-- ── Practice Areas ── -->
+<section class="practice-areas fade-up" id="services">
+  <div class="pa-label">Practice Areas</div>
+  <div class="pa-row"><span class="pa-num">01</span><span class="pa-name">Criminal Law</span><span class="pa-desc">Expert defence for bail, trials, appeals, and criminal litigation at every court level.</span></div>
+  <div class="pa-row"><span class="pa-num">02</span><span class="pa-name">Civil Law</span><span class="pa-desc">Property disputes, contractual obligations, and civil rights protection.</span></div>
+  <div class="pa-row"><span class="pa-num">03</span><span class="pa-name">Corporate Law</span><span class="pa-desc">Business formation, regulatory compliance, mergers & acquisitions.</span></div>
+  <div class="pa-row"><span class="pa-num">04</span><span class="pa-name">Matrimonial & Family Law</span><span class="pa-desc">Divorce, custody, maintenance, and domestic violence cases.</span></div>
+  <div class="pa-row"><span class="pa-num">05</span><span class="pa-name">Cyber Crime & IT Law</span><span class="pa-desc">Data breaches, online fraud, defamation, and IT Act prosecutions.</span></div>
+  <div class="pa-row"><span class="pa-num">06</span><span class="pa-name">Real Estate Disputes</span><span class="pa-desc">Land acquisition, RERA matters, title disputes.</span></div>
+  <div class="pa-row"><span class="pa-num">07</span><span class="pa-name">IP & Trademark</span><span class="pa-desc">Patent registration, trademark protection, and IP litigation.</span></div>
+  <div class="pa-row"><span class="pa-num">08</span><span class="pa-name">Consumer Protection</span><span class="pa-desc">Consumer forum complaints, product liability, unfair trade practices.</span></div>
+  <div class="pa-row"><span class="pa-num">09</span><span class="pa-name">NCLT & Tax Law</span><span class="pa-desc">Insolvency proceedings, tax disputes, GST matters.</span></div>
+  <div class="pa-row"><span class="pa-num">10</span><span class="pa-name">Environment Law</span><span class="pa-desc">Environmental clearances, NGT matters, regulatory compliance.</span></div>
+</section>
+
+<!-- ── Stats ── -->
+<section class="stats-section fade-up">
+  <div class="stats-inner">
+    <div class="stat-item"><div class="stat-num">12</div><div class="stat-label">Cities</div></div>
+    <div class="stat-item"><div class="stat-num">500+</div><div class="stat-label">Cases</div></div>
+    <div class="stat-item"><div class="stat-num">25+</div><div class="stat-label">Years</div></div>
+    <div class="stat-item"><div class="stat-num">10</div><div class="stat-label">Practice Areas</div></div>
+  </div>
+</section>
+
+<!-- ── About Strip ── -->
+<section class="about-strip fade-up" id="about">
+  <div class="about-quote">
+    "Justice Will Not Be Served Until Those Who Are Unaffected Are As Outraged As Those Who Are."
+  </div>
+  <div class="about-text">
+    <p>Legal Syndicate Advisory is one of India's most trusted multi-practice law firms, operating across Delhi, Gurgaon, Noida, Prayagraj, Lucknow and 7 more cities.</p>
+    <p>Founded with a mission to make expert legal representation accessible, we combine deep legal expertise with modern client service — ensuring every case receives the attention and strategy it deserves.</p>
+  </div>
+</section>
+
+<!-- ── Blog Preview ── -->
+<section class="blog-preview fade-up" id="blog">
+  <div class="blog-label">Latest Insights</div>
+  <div class="blog-grid">
+    <div class="blog-card">
+      <span class="blog-tag">Criminal Law</span>
+      <h4>Understanding Bail Provisions Under the New Criminal Code 2024</h4>
+      <div class="blog-date">March 2026</div>
+      <a href="#" class="blog-link">Read More →</a>
+    </div>
+    <div class="blog-card">
+      <span class="blog-tag">Corporate</span>
+      <h4>Key Compliance Changes for Indian Startups in 2026</h4>
+      <div class="blog-date">February 2026</div>
+      <a href="#" class="blog-link">Read More →</a>
+    </div>
+    <div class="blog-card">
+      <span class="blog-tag">Cyber Crime</span>
+      <h4>How to Protect Your Business From Digital Fraud in India</h4>
+      <div class="blog-date">January 2026</div>
+      <a href="#" class="blog-link">Read More →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ── -->
+<footer class="footer" id="contact">
+  <div class="footer-logo">Legal Syndicate.</div>
+  <div class="footer-links">
+    <a href="#">Home</a><a href="#">About</a><a href="#">Services</a>
+    <a href="#">Blog</a><a href="#">Contact</a>
+    <a href="tel:+919773906767">+91 9773906767</a>
+    <a href="mailto:syndicateadvisory@gmail.com">syndicateadvisory@gmail.com</a>
+  </div>
+  <div class="footer-copy">© 2026 Legal Syndicate Advisory Pvt. Ltd.</div>
+</footer>
+
+<script>
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
+  });
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

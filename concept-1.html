@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Legal Syndicate Advisory — The Corporate Elite</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #FFFFFF;
+      --bg2: #F8F6F0;
+      --primary: #1A1A2E;
+      --accent: #C6A84B;
+      --accent-light: #d4b85e;
+      --text: #1A1A2E;
+      --muted: #6B6B80;
+      --border: #E8E4DA;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--bg); line-height: 1.7; }
+    h1,h2,h3,h4 { font-family: 'Playfair Display', serif; font-weight: 700; line-height: 1.2; }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ── Concept Switcher ── */
+    .concept-switcher {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+      background: var(--primary);
+      display: flex; justify-content: center; align-items: center; gap: 8px;
+      padding: 10px 20px;
+    }
+    .concept-switcher a {
+      padding: 8px 22px; border-radius: 6px; font-size: 0.82em; font-weight: 600;
+      letter-spacing: 0.04em; transition: all 0.3s ease;
+    }
+    .concept-switcher a.active {
+      background: var(--accent); color: var(--primary);
+    }
+    .concept-switcher a:not(.active) {
+      color: rgba(255,255,255,0.6); border: 1px solid rgba(255,255,255,0.15);
+    }
+    .concept-switcher a:not(.active):hover {
+      color: #fff; border-color: rgba(255,255,255,0.4);
+    }
+
+    /* ── Navbar ── */
+    .navbar {
+      position: fixed; top: 48px; left: 0; right: 0; z-index: 999;
+      background: rgba(255,255,255,0.97); backdrop-filter: blur(12px);
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 18px 60px;
+      border-bottom: 2px solid transparent;
+      transition: border-color 0.4s ease, box-shadow 0.4s ease;
+    }
+    .navbar.scrolled {
+      border-bottom-color: var(--accent);
+      box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif; font-size: 1.35em; font-weight: 700;
+      color: var(--primary); letter-spacing: 0.02em;
+    }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; align-items: center; gap: 32px; }
+    .nav-links a { font-size: 0.88em; font-weight: 500; color: var(--muted); transition: color 0.3s; }
+    .nav-links a:hover { color: var(--primary); }
+    .nav-cta {
+      background: var(--accent); color: #fff; padding: 10px 24px;
+      border-radius: 6px; font-size: 0.85em; font-weight: 600;
+      transition: background 0.3s, transform 0.2s;
+    }
+    .nav-cta:hover { background: var(--accent-light); transform: translateY(-1px); }
+    .mobile-toggle { display: none; cursor: pointer; font-size: 1.5em; color: var(--primary); }
+
+    /* ── Hero ── */
+    .hero {
+      margin-top: 120px; padding: 80px 60px 60px;
+      display: flex; align-items: center; gap: 60px;
+      max-width: 1280px; margin-left: auto; margin-right: auto;
+    }
+    .hero-content { flex: 1; }
+    .hero-content h1 { font-size: 3.4em; margin-bottom: 20px; color: var(--primary); }
+    .hero-content h1 span { color: var(--accent); }
+    .hero-content p { font-size: 1.1em; color: var(--muted); max-width: 520px; margin-bottom: 35px; }
+    .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--primary); color: #fff; padding: 14px 32px;
+      border-radius: 8px; font-size: 0.92em; font-weight: 600;
+      transition: transform 0.2s, box-shadow 0.3s; border: none; cursor: pointer;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(26,26,46,0.2); }
+    .btn-outline {
+      background: transparent; color: var(--primary); padding: 14px 32px;
+      border-radius: 8px; font-size: 0.92em; font-weight: 600;
+      border: 2px solid var(--border); cursor: pointer;
+      transition: border-color 0.3s, color 0.3s;
+    }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+    .hero-image {
+      flex: 1; min-height: 420px;
+      background: linear-gradient(135deg, #F8F6F0 0%, #ede8da 100%);
+      border-radius: 16px; display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+    .hero-image::before {
+      content: '⚖'; font-size: 8em; color: var(--accent); opacity: 0.2;
+    }
+    .hero-image-label {
+      position: absolute; bottom: 20px; left: 20px;
+      font-size: 0.75em; color: var(--muted); font-weight: 500; letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* ── Stats ── */
+    .stats {
+      display: flex; justify-content: center; gap: 0;
+      max-width: 1280px; margin: 0 auto;
+      padding: 50px 60px;
+      border-top: 1px solid var(--border);
+    }
+    .stat-item {
+      flex: 1; text-align: center; padding: 20px;
+      border-right: 1px solid var(--border);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-num { font-family: 'Playfair Display', serif; font-size: 2.4em; font-weight: 700; color: var(--primary); }
+    .stat-label { font-size: 0.85em; color: var(--muted); margin-top: 4px; }
+
+    /* ── Practice Areas ── */
+    .practice-areas {
+      padding: 80px 60px;
+      max-width: 1280px; margin: 0 auto;
+    }
+    .section-label {
+      font-size: 0.75em; font-weight: 600; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 8px;
+    }
+    .section-title { font-size: 2.4em; margin-bottom: 12px; }
+    .section-desc { color: var(--muted); max-width: 600px; margin-bottom: 40px; }
+    .pa-grid {
+      display: grid; grid-template-columns: repeat(5, 1fr); gap: 18px;
+    }
+    .pa-card {
+      background: #fff; border: 1px solid var(--border); border-radius: 10px;
+      padding: 28px 22px; text-align: center;
+      transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+      cursor: default;
+    }
+    .pa-card:hover {
+      border-color: var(--accent); transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(198,168,75,0.1);
+    }
+    .pa-icon {
+      font-size: 2em; margin-bottom: 14px;
+      width: 56px; height: 56px; line-height: 56px;
+      background: var(--bg2); border-radius: 12px;
+      margin: 0 auto 14px; color: var(--accent);
+    }
+    .pa-card h4 { font-size: 0.95em; margin-bottom: 6px; }
+    .pa-card p { font-size: 0.78em; color: var(--muted); line-height: 1.5; }
+
+    /* ── Why Choose Us ── */
+    .why-us {
+      padding: 80px 60px;
+      max-width: 1280px; margin: 0 auto;
+      display: flex; align-items: center; gap: 60px;
+    }
+    .why-content { flex: 1; }
+    .why-content h2 { font-size: 2.2em; margin-bottom: 20px; }
+    .why-point {
+      display: flex; gap: 16px; margin-bottom: 24px; align-items: flex-start;
+    }
+    .why-check {
+      width: 28px; height: 28px; min-width: 28px;
+      background: rgba(198,168,75,0.12); color: var(--accent);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 0.85em; font-weight: 700; margin-top: 2px;
+    }
+    .why-point h4 { font-size: 1em; margin-bottom: 4px; }
+    .why-point p { font-size: 0.88em; color: var(--muted); }
+    .why-image {
+      flex: 1; min-height: 380px;
+      background: linear-gradient(135deg, var(--bg2) 0%, #ede8da 100%);
+      border-radius: 16px; display: flex; align-items: center; justify-content: center;
+    }
+    .why-image::before { content: '🏛️'; font-size: 6em; opacity: 0.2; }
+
+    /* ── Testimonials ── */
+    .testimonials {
+      background: var(--bg2); padding: 80px 60px;
+    }
+    .testimonials-inner {
+      max-width: 1280px; margin: 0 auto;
+    }
+    .test-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 40px;
+    }
+    .test-card {
+      background: #fff; border-radius: 12px; padding: 32px 28px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+      transition: transform 0.3s;
+    }
+    .test-card:hover { transform: translateY(-4px); }
+    .test-stars { color: var(--accent); font-size: 1em; margin-bottom: 16px; letter-spacing: 2px; }
+    .test-quote { font-size: 0.92em; color: var(--text); line-height: 1.7; margin-bottom: 20px; font-style: italic; }
+    .test-author { font-weight: 600; font-size: 0.88em; }
+    .test-case { font-size: 0.78em; color: var(--muted); }
+
+    /* ── CTA Banner ── */
+    .cta-banner {
+      padding: 80px 60px; text-align: center;
+      max-width: 1280px; margin: 0 auto;
+    }
+    .cta-banner h2 { font-size: 2.4em; margin-bottom: 16px; }
+    .cta-banner p { color: var(--muted); max-width: 600px; margin: 0 auto 30px; }
+    .cta-btns { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+
+    /* ── Footer ── */
+    .footer {
+      background: var(--primary); color: rgba(255,255,255,0.7); padding: 60px 60px 30px;
+    }
+    .footer-inner {
+      max-width: 1280px; margin: 0 auto;
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px;
+    }
+    .footer-brand h3 {
+      font-family: 'Playfair Display', serif; color: #fff; font-size: 1.4em; margin-bottom: 12px;
+    }
+    .footer-brand h3 span { color: var(--accent); }
+    .footer-brand p { font-size: 0.85em; line-height: 1.8; }
+    .footer-col h4 {
+      color: var(--accent); font-family: 'DM Sans', sans-serif; font-size: 0.78em;
+      font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .footer-col a {
+      display: block; font-size: 0.85em; margin-bottom: 10px;
+      color: rgba(255,255,255,0.55); transition: color 0.3s;
+    }
+    .footer-col a:hover { color: var(--accent); }
+    .footer-bottom {
+      max-width: 1280px; margin: 40px auto 0;
+      padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.08);
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 0.78em; color: rgba(255,255,255,0.35);
+    }
+    .footer-social { display: flex; gap: 14px; }
+    .footer-social a {
+      width: 36px; height: 36px; border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.12);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.85em; color: rgba(255,255,255,0.5);
+      transition: all 0.3s;
+    }
+    .footer-social a:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ── Animations ── */
+    .fade-up {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── Mobile ── */
+    @media (max-width: 1024px) {
+      .pa-grid { grid-template-columns: repeat(3, 1fr); }
+      .footer-inner { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .concept-switcher { padding: 8px 12px; gap: 4px; }
+      .concept-switcher a { padding: 6px 14px; font-size: 0.72em; }
+      .navbar { padding: 14px 24px; top: 42px; }
+      .nav-links { display: none; }
+      .mobile-toggle { display: block; }
+      .hero { flex-direction: column; padding: 60px 24px; margin-top: 100px; gap: 40px; }
+      .hero-content h1 { font-size: 2.2em; }
+      .hero-image { min-height: 260px; }
+      .stats { flex-wrap: wrap; padding: 30px 24px; }
+      .stat-item { flex: 1 1 50%; border-right: none; padding: 16px; }
+      .practice-areas { padding: 50px 24px; }
+      .pa-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+      .why-us { flex-direction: column; padding: 50px 24px; }
+      .why-image { min-height: 240px; width: 100%; }
+      .testimonials { padding: 50px 24px; }
+      .test-grid { grid-template-columns: 1fr; }
+      .cta-banner { padding: 50px 24px; }
+      .cta-banner h2 { font-size: 1.8em; }
+      .footer { padding: 40px 24px 20px; }
+      .footer-inner { grid-template-columns: 1fr; gap: 30px; }
+      .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+      .section-title { font-size: 1.8em; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Concept Switcher ── -->
+<div class="concept-switcher">
+  <a href="concept-1.html" class="active">Concept 1 — Corporate Elite</a>
+  <a href="concept-2.html">Concept 2 — Trust & Clarity</a>
+  <a href="concept-3.html">Concept 3 — Modern Syndicate</a>
+</div>
+
+<!-- ── Navbar ── -->
+<nav class="navbar" id="navbar">
+  <div class="nav-logo">Legal Syndicate<span>.</span></div>
+  <div class="nav-links">
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#lawyers">For Lawyers</a>
+    <a href="#blog">Blog</a>
+    <a href="#contact">Contact</a>
+    <a href="#" class="nav-cta">Book a Consultation</a>
+  </div>
+  <div class="mobile-toggle" onclick="document.querySelector('.nav-links').classList.toggle('show')">☰</div>
+</nav>
+
+<!-- ── Hero ── -->
+<section class="hero fade-up" id="home">
+  <div class="hero-content">
+    <h1>Your Legal Rights.<br>Defended With <span>Precision.</span></h1>
+    <p>Legal Syndicate Advisory is one of India's most trusted law firms — delivering expert representation across Criminal, Corporate, Civil, and Family law in 12+ cities nationwide.</p>
+    <div class="hero-btns">
+      <button class="btn-primary">Book a Consultation</button>
+      <button class="btn-outline">Learn More</button>
+    </div>
+  </div>
+  <div class="hero-image">
+    <span class="hero-image-label">Premium Photo Placeholder</span>
+  </div>
+</section>
+
+<!-- ── Stats ── -->
+<div class="stats fade-up">
+  <div class="stat-item"><div class="stat-num">12</div><div class="stat-label">Cities</div></div>
+  <div class="stat-item"><div class="stat-num">500+</div><div class="stat-label">Cases Won</div></div>
+  <div class="stat-item"><div class="stat-num">25+</div><div class="stat-label">Years Experience</div></div>
+  <div class="stat-item"><div class="stat-num">100%</div><div class="stat-label">Commitment</div></div>
+</div>
+
+<!-- ── Practice Areas ── -->
+<section class="practice-areas fade-up" id="services">
+  <div class="section-label">Our Expertise</div>
+  <h2 class="section-title">Practice Areas</h2>
+  <p class="section-desc">Comprehensive legal services across every major domain — protecting your rights with deep expertise and unwavering dedication.</p>
+  <div class="pa-grid">
+    <div class="pa-card">
+      <div class="pa-icon">⚖</div>
+      <h4>Criminal Law</h4>
+      <p>Expert defence for all criminal matters at every court level.</p>
+    </div>
+    <div class="pa-card">
+      <div class="pa-icon">📜</div>
+      <h4>Civil Law</h4>
+      <p>Property disputes, contracts, and civil rights protection.</p>
+    </div>
+    <div class="pa-card">
+      <div class="pa-icon">🏢</div>
+      <h4>Corporate Law</h4>
+      <p>Business formation, compliance, mergers & acquisitions.</p>
+    </div>
+    <div class="pa-card">
+      <div class="pa-icon">👨‍👩‍👧</div>
+      <h4>Family Law</h4>
+      <p>Matrimonial disputes, custody, divorce proceedings.</p>
+    </div>
+    <div class="pa-card">
+      <div class="pa-icon">💻</div>
+      <h4>Cyber Crime</h4>
+      <p>IT Act cases, data breaches, and digital fraud defence.</p>
+    </div>
+    <div class="pa-card">
+      <div class="pa-icon">🏠</div>
+      <h4>Real Estate</h4>
+      <p>Land disputes, RERA matters, and property litigation.</p>
+    </div>
+    <div class="pa-card">
+      <div class="pa-icon">™️</div>
+      <h4>IP & Trademark</h4>
+      <p>Patent registration, trademark protection, IP rights.</p>
+    </div>
+    <div class="pa-card">
+      <div class="pa-icon">🛡️</div>
+      <h4>Consumer Protection</h4>
+      <p>Consumer rights litigation and dispute resolution.</p>
+    </div>
+    <div class="pa-card">
+      <div class="pa-icon">📊</div>
+      <h4>NCLT & Tax</h4>
+      <p>Insolvency proceedings, tax disputes, and tribunal cases.</p>
+    </div>
+    <div class="pa-card">
+      <div class="pa-icon">🌿</div>
+      <h4>Environment Law</h4>
+      <p>Environmental clearances, NGT matters, and compliance.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── Why Choose Us ── -->
+<section class="why-us fade-up" id="about">
+  <div class="why-content">
+    <div class="section-label">Why Choose Us</div>
+    <h2>Built on Trust.<br>Proven by Results.</h2>
+    <div class="why-point">
+      <div class="why-check">✓</div>
+      <div>
+        <h4>Pan-India Presence</h4>
+        <p>Operating across Delhi, Gurgaon, Noida, Prayagraj, Lucknow and 7 more cities — your legal team is always nearby.</p>
+      </div>
+    </div>
+    <div class="why-point">
+      <div class="why-check">✓</div>
+      <div>
+        <h4>Senior Counsel on Every Case</h4>
+        <p>Your case is never delegated to juniors. Every matter is personally handled by experienced advocates.</p>
+      </div>
+    </div>
+    <div class="why-point">
+      <div class="why-check">✓</div>
+      <div>
+        <h4>Transparent Pricing</h4>
+        <p>No hidden fees, no surprises. Clear fee structures communicated upfront before any engagement.</p>
+      </div>
+    </div>
+  </div>
+  <div class="why-image"></div>
+</section>
+
+<!-- ── Testimonials ── -->
+<section class="testimonials fade-up">
+  <div class="testimonials-inner">
+    <div class="section-label">Client Testimonials</div>
+    <h2 class="section-title">What Our Clients Say</h2>
+    <div class="test-grid">
+      <div class="test-card">
+        <div class="test-stars">★★★★★</div>
+        <p class="test-quote">"Legal Syndicate handled my corporate dispute with remarkable professionalism. Their strategic approach resulted in a favorable settlement within three months."</p>
+        <div class="test-author">Rajesh Sharma</div>
+        <div class="test-case">Corporate Law — Delhi</div>
+      </div>
+      <div class="test-card">
+        <div class="test-stars">★★★★★</div>
+        <p class="test-quote">"During the most difficult time of my life, the family law team provided compassionate yet aggressive representation. I cannot recommend them enough."</p>
+        <div class="test-author">Priya Mehta</div>
+        <div class="test-case">Family Law — Gurgaon</div>
+      </div>
+      <div class="test-card">
+        <div class="test-stars">★★★★★</div>
+        <p class="test-quote">"Their criminal defence team is outstanding. They fought my case with conviction and secured an acquittal when all seemed lost. Truly the best."</p>
+        <div class="test-author">Amit Verma</div>
+        <div class="test-case">Criminal Law — Noida</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA ── -->
+<section class="cta-banner fade-up">
+  <h2>Ready to Protect Your Rights?</h2>
+  <p>Schedule a confidential consultation with our senior advocates today. Your first step towards justice starts here.</p>
+  <div class="cta-btns">
+    <button class="btn-primary">Book a Consultation</button>
+    <button class="btn-outline">Chat With Us</button>
+  </div>
+</section>
+
+<!-- ── Footer ── -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <h3>Legal Syndicate<span>.</span></h3>
+      <p>"Justice Will Not Be Served Until Those Who Are Unaffected Are As Outraged As Those Who Are."</p>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <a href="#">Home</a><a href="#">About Us</a><a href="#">Services</a><a href="#">For Lawyers</a><a href="#">Blog</a>
+    </div>
+    <div class="footer-col">
+      <h4>Practice Areas</h4>
+      <a href="#">Criminal Law</a><a href="#">Civil Law</a><a href="#">Corporate Law</a><a href="#">Family Law</a><a href="#">Cyber Crime</a>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <a href="tel:+919773906767">+91 9773906767</a>
+      <a href="mailto:syndicateadvisory@gmail.com">syndicateadvisory@gmail.com</a>
+      <a href="#">Delhi, Gurgaon, Noida & More</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Legal Syndicate Advisory Pvt. Ltd. All rights reserved.</span>
+    <div class="footer-social">
+      <a href="#">f</a><a href="#">in</a><a href="#">𝕏</a><a href="#">ig</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Navbar scroll effect
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
+  });
+
+  // Scroll animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>

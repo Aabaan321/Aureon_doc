@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Legal Syndicate Advisory — Trust & Clarity</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #FFFFFF;
+      --bg2: #F0F4FF;
+      --primary: #1E3A5F;
+      --accent: #2E7D9E;
+      --highlight: #E8A020;
+      --text: #1A1A2A;
+      --muted: #5A6478;
+      --border: #E2E8F0;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--bg); line-height: 1.7; }
+    h1,h2,h3,h4 { font-family: 'Inter', sans-serif; font-weight: 800; line-height: 1.2; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ── Concept Switcher ── */
+    .concept-switcher {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+      background: var(--primary);
+      display: flex; justify-content: center; align-items: center; gap: 8px;
+      padding: 10px 20px;
+    }
+    .concept-switcher a {
+      padding: 8px 22px; border-radius: 6px; font-size: 0.82em; font-weight: 600;
+      letter-spacing: 0.04em; transition: all 0.3s ease;
+    }
+    .concept-switcher a.active { background: var(--highlight); color: #fff; }
+    .concept-switcher a:not(.active) {
+      color: rgba(255,255,255,0.6); border: 1px solid rgba(255,255,255,0.15);
+    }
+    .concept-switcher a:not(.active):hover { color: #fff; border-color: rgba(255,255,255,0.4); }
+
+    /* ── Navbar ── */
+    .navbar {
+      position: fixed; top: 48px; left: 0; right: 0; z-index: 999;
+      background: rgba(255,255,255,0.97); backdrop-filter: blur(12px);
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 16px 60px;
+      border-bottom: 1px solid var(--border);
+      transition: box-shadow 0.4s ease;
+    }
+    .navbar.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.06); }
+    .nav-logo { font-size: 1.3em; font-weight: 800; color: var(--primary); }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; align-items: center; gap: 28px; }
+    .nav-links a { font-size: 0.86em; font-weight: 500; color: var(--muted); transition: color 0.3s; }
+    .nav-links a:hover { color: var(--primary); }
+    .nav-cta {
+      background: var(--highlight); color: #fff; padding: 10px 24px;
+      border-radius: 8px; font-size: 0.85em; font-weight: 600;
+      transition: background 0.3s, transform 0.2s;
+    }
+    .nav-cta:hover { background: #d49218; transform: translateY(-1px); }
+    .mobile-toggle { display: none; cursor: pointer; font-size: 1.5em; color: var(--primary); }
+
+    /* ── Hero ── */
+    .hero {
+      margin-top: 120px; padding: 80px 60px 50px;
+      text-align: center; max-width: 900px; margin-left: auto; margin-right: auto;
+    }
+    .hero-badge {
+      display: inline-block; background: var(--bg2); color: var(--accent);
+      padding: 8px 22px; border-radius: 50px; font-size: 0.82em; font-weight: 600;
+      margin-bottom: 24px; letter-spacing: 0.02em;
+    }
+    .hero h1 { font-size: 3.2em; margin-bottom: 20px; color: var(--primary); }
+    .hero h1 span { color: var(--accent); }
+    .hero p { font-size: 1.1em; color: var(--muted); max-width: 640px; margin: 0 auto 35px; }
+    .hero-btns { display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--primary); color: #fff; padding: 14px 32px;
+      border-radius: 8px; font-size: 0.92em; font-weight: 600; border: none; cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.3s;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(30,58,95,0.2); }
+    .btn-outline {
+      background: transparent; color: var(--primary); padding: 14px 32px;
+      border-radius: 8px; font-size: 0.92em; font-weight: 600;
+      border: 2px solid var(--border); cursor: pointer; transition: border-color 0.3s;
+    }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ── City Strip ── */
+    .city-strip {
+      background: var(--bg2); padding: 18px 60px;
+      display: flex; justify-content: center; align-items: center; gap: 24px; flex-wrap: wrap;
+      font-size: 0.82em; color: var(--muted);
+    }
+    .city-strip span { display: flex; align-items: center; gap: 6px; }
+    .city-dot { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; }
+
+    /* ── Services ── */
+    .services {
+      background: var(--bg2); padding: 80px 60px;
+    }
+    .services-inner { max-width: 1280px; margin: 0 auto; }
+    .section-title { font-size: 2.4em; margin-bottom: 12px; text-align: center; }
+    .section-desc { color: var(--muted); text-align: center; max-width: 600px; margin: 0 auto 40px; }
+    .srv-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+    }
+    .srv-card {
+      background: #fff; border-radius: 14px; padding: 32px 28px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .srv-card:hover { transform: translateY(-5px); box-shadow: 0 12px 40px rgba(0,0,0,0.08); }
+    .srv-icon {
+      width: 52px; height: 52px; border-radius: 12px;
+      background: var(--bg2); display: flex; align-items: center; justify-content: center;
+      font-size: 1.6em; margin-bottom: 18px; color: var(--accent);
+    }
+    .srv-card h4 { font-size: 1.05em; font-weight: 700; margin-bottom: 8px; }
+    .srv-card p { font-size: 0.85em; color: var(--muted); margin-bottom: 14px; }
+    .srv-link { font-size: 0.82em; font-weight: 600; color: var(--accent); }
+    .srv-link:hover { text-decoration: underline; }
+
+    /* ── Process ── */
+    .process {
+      padding: 80px 60px; max-width: 1280px; margin: 0 auto;
+    }
+    .process-steps {
+      display: flex; align-items: flex-start; gap: 0; margin-top: 50px; position: relative;
+    }
+    .process-steps::before {
+      content: ''; position: absolute; top: 36px; left: 60px; right: 60px;
+      height: 2px; border-top: 3px dashed var(--border); z-index: 0;
+    }
+    .step {
+      flex: 1; text-align: center; position: relative; z-index: 1;
+    }
+    .step-num {
+      width: 72px; height: 72px; border-radius: 50%;
+      background: var(--primary); color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4em; font-weight: 800; margin: 0 auto 18px;
+      box-shadow: 0 4px 15px rgba(30,58,95,0.2);
+    }
+    .step h4 { font-size: 0.95em; font-weight: 700; margin-bottom: 6px; }
+    .step p { font-size: 0.82em; color: var(--muted); max-width: 180px; margin: 0 auto; }
+
+    /* ── Lawyer Banner ── */
+    .lawyer-banner {
+      background: var(--primary); padding: 60px 60px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 30px; flex-wrap: wrap;
+    }
+    .lawyer-banner h2 { color: #fff; font-size: 2em; }
+    .lawyer-banner p { color: rgba(255,255,255,0.7); font-size: 0.95em; max-width: 500px; }
+    .lawyer-banner .btn-apply {
+      background: var(--highlight); color: #fff; padding: 14px 36px;
+      border-radius: 8px; font-weight: 600; font-size: 0.92em; border: none; cursor: pointer;
+      transition: background 0.3s;
+    }
+    .lawyer-banner .btn-apply:hover { background: #d49218; }
+
+    /* ── Contact Strip ── */
+    .contact-strip {
+      padding: 60px 60px;
+      max-width: 1280px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+    }
+    .contact-card {
+      background: #fff; border: 1px solid var(--border); border-radius: 14px;
+      padding: 32px 28px; text-align: center;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    .contact-card:hover { border-color: var(--accent); box-shadow: 0 8px 25px rgba(0,0,0,0.06); }
+    .contact-icon {
+      width: 56px; height: 56px; border-radius: 50%;
+      background: var(--bg2); display: flex; align-items: center; justify-content: center;
+      font-size: 1.5em; margin: 0 auto 16px; color: var(--accent);
+    }
+    .contact-card h4 { font-size: 1em; font-weight: 700; margin-bottom: 6px; }
+    .contact-card p { font-size: 0.88em; color: var(--muted); }
+
+    /* ── Footer ── */
+    .footer {
+      background: var(--primary); color: rgba(255,255,255,0.7); padding: 40px 60px;
+    }
+    .footer-inner {
+      max-width: 1280px; margin: 0 auto;
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;
+    }
+    .footer-logo { font-size: 1.2em; font-weight: 800; color: #fff; }
+    .footer-logo span { color: var(--highlight); }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a { font-size: 0.82em; color: rgba(255,255,255,0.5); transition: color 0.3s; }
+    .footer-links a:hover { color: var(--highlight); }
+    .footer-copy { font-size: 0.75em; color: rgba(255,255,255,0.35); }
+
+    /* ── Animations ── */
+    .fade-up { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── Mobile ── */
+    @media (max-width: 1024px) {
+      .srv-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .concept-switcher { padding: 8px 12px; gap: 4px; }
+      .concept-switcher a { padding: 6px 14px; font-size: 0.72em; }
+      .navbar { padding: 14px 24px; top: 42px; }
+      .nav-links { display: none; }
+      .mobile-toggle { display: block; }
+      .hero { padding: 60px 24px; margin-top: 100px; }
+      .hero h1 { font-size: 2.1em; }
+      .city-strip { padding: 16px 24px; gap: 14px; }
+      .services { padding: 50px 24px; }
+      .srv-grid { grid-template-columns: 1fr; }
+      .process { padding: 50px 24px; }
+      .process-steps { flex-direction: column; gap: 30px; }
+      .process-steps::before { display: none; }
+      .lawyer-banner { padding: 40px 24px; flex-direction: column; text-align: center; }
+      .lawyer-banner h2 { font-size: 1.6em; }
+      .contact-strip { padding: 40px 24px; grid-template-columns: 1fr; }
+      .footer { padding: 30px 24px; }
+      .footer-inner { flex-direction: column; text-align: center; }
+      .footer-links { flex-wrap: wrap; justify-content: center; }
+      .section-title { font-size: 1.8em; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Concept Switcher ── -->
+<div class="concept-switcher">
+  <a href="concept-1.html">Concept 1 — Corporate Elite</a>
+  <a href="concept-2.html" class="active">Concept 2 — Trust & Clarity</a>
+  <a href="concept-3.html">Concept 3 — Modern Syndicate</a>
+</div>
+
+<!-- ── Navbar ── -->
+<nav class="navbar" id="navbar">
+  <div class="nav-logo">Legal Syndicate<span> Advisory</span></div>
+  <div class="nav-links">
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#lawyers">For Lawyers</a>
+    <a href="#blog">Blog</a>
+    <a href="#contact">Contact</a>
+    <a href="#" class="nav-cta">Book a Consultation</a>
+  </div>
+  <div class="mobile-toggle" onclick="document.querySelector('.nav-links').classList.toggle('show')">☰</div>
+</nav>
+
+<!-- ── Hero ── -->
+<section class="hero fade-up" id="home">
+  <span class="hero-badge">✦ Trusted Legal Advisory Since 2022</span>
+  <h1>Expert Legal Representation <span>Across India</span></h1>
+  <p>From criminal defence to corporate compliance, Legal Syndicate Advisory delivers comprehensive legal services across 12+ cities — with a commitment to justice, clarity, and results.</p>
+  <div class="hero-btns">
+    <button class="btn-primary">Book a Consultation</button>
+    <button class="btn-outline">Chat With Us</button>
+  </div>
+</section>
+
+<!-- ── City Strip ── -->
+<div class="city-strip fade-up">
+  <span><span class="city-dot"></span> Delhi</span>
+  <span><span class="city-dot"></span> Gurgaon</span>
+  <span><span class="city-dot"></span> Noida</span>
+  <span><span class="city-dot"></span> Prayagraj</span>
+  <span><span class="city-dot"></span> Lucknow</span>
+  <span><span class="city-dot"></span> + 7 More Cities</span>
+</div>
+
+<!-- ── Services ── -->
+<section class="services fade-up" id="services">
+  <div class="services-inner">
+    <h2 class="section-title">Our Practice Areas</h2>
+    <p class="section-desc">Comprehensive legal solutions tailored to protect your rights and interests across every major legal domain.</p>
+    <div class="srv-grid">
+      <div class="srv-card"><div class="srv-icon">⚖</div><h4>Criminal Law</h4><p>Expert defence across bail, trials, appeals, and criminal litigation at all court levels.</p><a href="#" class="srv-link">Learn More →</a></div>
+      <div class="srv-card"><div class="srv-icon">📜</div><h4>Civil Law</h4><p>Civil suits, property disputes, injunctions, and declaratory suits handled with precision.</p><a href="#" class="srv-link">Learn More →</a></div>
+      <div class="srv-card"><div class="srv-icon">🏢</div><h4>Corporate Law</h4><p>Company formation, compliance, board advisory, and mergers & acquisitions.</p><a href="#" class="srv-link">Learn More →</a></div>
+      <div class="srv-card"><div class="srv-icon">👨‍👩‍👧</div><h4>Matrimonial & Family Law</h4><p>Divorce, child custody, maintenance, and domestic violence cases.</p><a href="#" class="srv-link">Learn More →</a></div>
+      <div class="srv-card"><div class="srv-icon">💻</div><h4>Cyber Crime & IT Law</h4><p>Data breaches, online fraud, defamation, and IT Act prosecutions.</p><a href="#" class="srv-link">Learn More →</a></div>
+      <div class="srv-card"><div class="srv-icon">🏠</div><h4>Real Estate Disputes</h4><p>Title disputes, RERA matters, builder-buyer conflicts, and land acquisition.</p><a href="#" class="srv-link">Learn More →</a></div>
+      <div class="srv-card"><div class="srv-icon">™️</div><h4>IP & Trademark</h4><p>Trademark registration, patent filing, copyright protection, and IP litigation.</p><a href="#" class="srv-link">Learn More →</a></div>
+      <div class="srv-card"><div class="srv-icon">🛡️</div><h4>Consumer Protection</h4><p>Consumer forum complaints, product liability, and unfair trade practices.</p><a href="#" class="srv-link">Learn More →</a></div>
+      <div class="srv-card"><div class="srv-icon">📊</div><h4>NCLT & Tax Law</h4><p>Insolvency resolution, tax disputes, GST matters, and tribunal proceedings.</p><a href="#" class="srv-link">Learn More →</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Process ── -->
+<section class="process fade-up">
+  <h2 class="section-title">How It Works</h2>
+  <p class="section-desc">Four simple steps to getting the legal representation you deserve.</p>
+  <div class="process-steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <h4>Book a Consultation</h4>
+      <p>Schedule a call or in-person meeting at your convenience.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h4>Case Evaluation</h4>
+      <p>Our senior advocates assess your case merits and options.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h4>Legal Strategy</h4>
+      <p>We craft a tailored strategy aligned to your best outcome.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <h4>Resolution</h4>
+      <p>We fight your case to achieve the strongest possible result.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── Lawyer Banner ── -->
+<section class="lawyer-banner fade-up" id="lawyers">
+  <div>
+    <h2>Are You a Lawyer?<br>Join Our Network.</h2>
+    <p>We're always looking for talented advocates who share our commitment to justice. Join India's fastest-growing legal advisory network.</p>
+  </div>
+  <button class="btn-apply">Apply Now</button>
+</section>
+
+<!-- ── Contact Strip ── -->
+<div class="contact-strip fade-up" id="contact">
+  <div class="contact-card">
+    <div class="contact-icon">📞</div>
+    <h4>Call Us</h4>
+    <p>+91 9773906767</p>
+  </div>
+  <div class="contact-card">
+    <div class="contact-icon">✉️</div>
+    <h4>Email Us</h4>
+    <p>syndicateadvisory@gmail.com</p>
+  </div>
+  <div class="contact-card">
+    <div class="contact-icon">📍</div>
+    <h4>Our Offices</h4>
+    <p>Delhi, Gurgaon, Noida, Prayagraj, Lucknow & More</p>
+  </div>
+</div>
+
+<!-- ── Footer ── -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-logo">Legal Syndicate<span>.</span></div>
+    <div class="footer-links">
+      <a href="#">Home</a><a href="#">About</a><a href="#">Services</a><a href="#">Blog</a><a href="#">Contact</a>
+    </div>
+    <div class="footer-copy">© 2026 Legal Syndicate Advisory Pvt. Ltd.</div>
+  </div>
+</footer>
+
+<script>
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
+  });
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
