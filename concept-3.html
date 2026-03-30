@@ -181,6 +181,67 @@
     .footer-links a:hover { color: var(--accent); }
     .footer-copy { font-size: 0.72em; color: var(--muted); }
 
+    /* ── Consultation Form ── */
+    .consult-section { padding: 80px 60px; max-width: 1280px; margin: 0 auto; }
+    .consult-grid { display: flex; gap: 50px; margin-top: 30px; }
+    .consult-info { flex: 1; }
+    .consult-form { flex: 1; }
+    .form-row { display: flex; gap: 14px; margin-bottom: 14px; }
+    .form-row.full { flex-direction: column; }
+    .form-input, .form-select, .form-textarea {
+      width: 100%; padding: 13px 16px; border: 1px solid var(--lines);
+      border-radius: 8px; font-family: 'Sora', sans-serif; font-size: 0.88em;
+      color: var(--text); background: #fff; outline: none; transition: border-color 0.3s;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--accent); }
+    .form-textarea { resize: vertical; min-height: 100px; }
+    .form-submit {
+      background: var(--accent); color: #fff; padding: 14px 36px;
+      border: none; border-radius: 8px; font-size: 0.88em; font-weight: 600;
+      cursor: pointer; transition: transform 0.2s, background 0.3s; margin-top: 6px;
+    }
+    .form-submit:hover { transform: translateY(-2px); background: var(--accent-light); }
+    .check-point { display: flex; gap: 12px; margin-bottom: 18px; align-items: flex-start; }
+    .check-icon { width: 28px; height: 28px; min-width: 28px; border-radius: 8px; background: rgba(212,168,67,0.1); color: var(--accent); display: flex; align-items: center; justify-content: center; font-size: 0.85em; font-weight: 700; }
+    .check-point h4 { font-size: 0.95em; font-weight: 700; margin-bottom: 2px; }
+    .check-point p { font-size: 0.82em; color: var(--muted); }
+    .section-title-c3 { font-size: 2.4em; margin-bottom: 8px; }
+    .section-desc-c3 { color: var(--muted); max-width: 600px; margin-bottom: 30px; }
+
+    /* ── Lawyer Onboarding ── */
+    .lawyer-section { background: var(--bg2); padding: 80px 60px; }
+    .lawyer-inner { max-width: 1280px; margin: 0 auto; }
+    .lawyer-grid { display: flex; gap: 50px; margin-top: 30px; }
+    .lawyer-form-box { flex: 1; background: #fff; border: 1px solid var(--lines); border-radius: 12px; padding: 32px; }
+
+    /* ── FAQ ── */
+    .faq-section { padding: 80px 60px; max-width: 1280px; margin: 0 auto; }
+    .faq-inner { max-width: 800px; margin: 0 auto; }
+    .faq-item { border-bottom: 1px solid var(--lines); cursor: pointer; transition: background 0.3s; }
+    .faq-item:hover { background: rgba(212,168,67,0.03); }
+    .faq-q { display: flex; justify-content: space-between; align-items: center; padding: 20px 0; font-weight: 700; font-size: 0.95em; }
+    .faq-q .faq-toggle { color: var(--accent); font-size: 1.2em; transition: transform 0.3s; }
+    .faq-a { padding: 0 0 18px; font-size: 0.88em; color: var(--muted); display: none; }
+    .faq-item.open .faq-a { display: block; }
+    .faq-item.open .faq-toggle { transform: rotate(45deg); }
+
+    /* ── Floating Widgets ── */
+    .whatsapp-float { position: fixed; bottom: 30px; left: 30px; z-index: 9000; width: 60px; height: 60px; border-radius: 50%; background: #25D366; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 1.8em; box-shadow: 0 4px 20px rgba(37,211,102,0.4); text-decoration: none; transition: transform 0.3s; }
+    .whatsapp-float:hover { transform: scale(1.1); }
+    .chatbot-float { position: fixed; bottom: 30px; right: 30px; z-index: 9000; width: 60px; height: 60px; border-radius: 50%; background: var(--primary); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 1.6em; box-shadow: 0 4px 20px rgba(0,0,0,0.2); cursor: pointer; transition: transform 0.3s; border: 2px solid var(--accent); }
+    .chatbot-float:hover { transform: scale(1.1); }
+    .chatbot-popup { position: fixed; bottom: 100px; right: 30px; z-index: 9001; width: 370px; height: 480px; background: #fff; border-radius: 16px; box-shadow: 0 12px 50px rgba(0,0,0,0.12); display: none; flex-direction: column; overflow: hidden; border: 1px solid var(--lines); }
+    .chatbot-popup.open { display: flex; }
+    .chatbot-header { background: var(--primary); color: #fff; padding: 18px 22px; display: flex; justify-content: space-between; align-items: center; }
+    .chatbot-header h4 { font-size: 0.95em; font-weight: 600; }
+    .chatbot-close { background: none; border: none; color: rgba(255,255,255,0.6); font-size: 1.2em; cursor: pointer; }
+    .chatbot-body { flex: 1; padding: 20px; overflow-y: auto; background: #FAFAFA; }
+    .chat-msg { max-width: 80%; margin-bottom: 14px; padding: 12px 16px; border-radius: 12px; font-size: 0.85em; line-height: 1.5; }
+    .chat-msg.bot { background: var(--bg2); color: var(--text); border-bottom-left-radius: 4px; }
+    .chatbot-input-area { display: flex; padding: 14px; border-top: 1px solid var(--lines); background: #fff; }
+    .chatbot-input { flex: 1; padding: 10px 14px; border: 1px solid var(--lines); border-radius: 8px; font-size: 0.85em; outline: none; font-family: 'Sora', sans-serif; }
+    .chatbot-send { margin-left: 8px; background: var(--accent); color: #fff; border: none; border-radius: 8px; padding: 10px 16px; font-weight: 600; cursor: pointer; font-size: 0.85em; }
+
     /* ── Animations ── */
     .fade-up { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
     .fade-up.visible { opacity: 1; transform: translateY(0); }
@@ -209,10 +270,20 @@
       .stat-num { font-size: 2.4em; }
       .about-strip { flex-direction: column; padding: 50px 24px; gap: 30px; }
       .about-quote { font-size: 1.2em; }
+      .consult-section { padding: 50px 24px; }
+      .consult-grid { flex-direction: column; }
+      .lawyer-section { padding: 50px 24px; }
+      .lawyer-grid { flex-direction: column; }
+      .faq-section { padding: 50px 24px; }
       .blog-preview { padding: 50px 24px; }
       .blog-grid { grid-template-columns: 1fr; }
       .footer { padding: 20px 24px; flex-direction: column; text-align: center; }
       .footer-links { flex-wrap: wrap; justify-content: center; }
+      .form-row { flex-direction: column; }
+      .section-title-c3 { font-size: 1.8em; }
+      .chatbot-popup { width: calc(100% - 40px); right: 20px; bottom: 90px; }
+      .whatsapp-float { bottom: 20px; left: 20px; width: 52px; height: 52px; font-size: 1.5em; }
+      .chatbot-float { bottom: 20px; right: 20px; width: 52px; height: 52px; font-size: 1.3em; }
     }
   </style>
 </head>
@@ -235,7 +306,7 @@
     <a href="#lawyers">For Lawyers</a>
     <a href="#blog">Blog</a>
     <a href="#contact">Contact</a>
-    <a href="#" class="nav-book">Book Now</a>
+    <a href="#consult" class="nav-book">Book Now</a>
   </div>
   <div class="mobile-toggle" onclick="document.querySelector('.nav-links').classList.toggle('show')">☰</div>
 </nav>
@@ -245,7 +316,7 @@
   <div class="hero-content">
     <h1>Legal Syndicate.<br><span>Advisory.</span></h1>
     <p>India's forward-thinking legal advisory firm. Expert representation across criminal, corporate, civil, and family law — delivered with precision and clarity.</p>
-    <button class="btn-gold">Book a Consultation</button>
+    <a href="#consult" class="btn-gold" style="text-decoration:none;display:inline-block;">Book a Consultation</a>
   </div>
   <div class="hero-visual">
     <div class="hero-icon"></div>
@@ -267,6 +338,28 @@
   <div class="pa-row"><span class="pa-num">10</span><span class="pa-name">Environment Law</span><span class="pa-desc">Environmental clearances, NGT matters, regulatory compliance.</span></div>
 </section>
 
+<!-- ── Consultation Form ── -->
+<section class="consult-section fade-up" id="consult">
+  <div class="pa-label">Get Started</div>
+  <h2 class="section-title-c3">Book a Consultation</h2>
+  <p class="section-desc-c3">Fill in your details and a senior advocate will contact you within 24 hours. Confidential and obligation-free.</p>
+  <div class="consult-grid">
+    <div class="consult-info">
+      <div class="check-point"><div class="check-icon">✓</div><div><h4>Free Initial Assessment</h4><p>Understand your legal position with no obligation.</p></div></div>
+      <div class="check-point"><div class="check-icon">✓</div><div><h4>24-Hour Response</h4><p>Our team contacts you within one business day.</p></div></div>
+      <div class="check-point"><div class="check-icon">✓</div><div><h4>100% Confidential</h4><p>Strict attorney-client privilege on all enquiries.</p></div></div>
+      <div class="check-point"><div class="check-icon">✓</div><div><h4>National & International</h4><p>Serving clients across India and overseas.</p></div></div>
+    </div>
+    <div class="consult-form">
+      <div class="form-row"><input type="text" class="form-input" placeholder="Full Name *"><input type="tel" class="form-input" placeholder="Phone Number *"></div>
+      <div class="form-row"><input type="email" class="form-input" placeholder="Email Address *"><select class="form-select"><option value="">Case Type *</option><option>Criminal Law</option><option>Civil Law</option><option>Corporate Law</option><option>Family / Matrimonial</option><option>Cyber Crime & IT</option><option>Real Estate</option><option>IP & Trademark</option><option>Consumer Protection</option><option>NCLT & Tax</option><option>Environment Law</option><option>Other</option></select></div>
+      <div class="form-row"><select class="form-select"><option value="">Client Type</option><option>Individual</option><option>Business / Corporate</option><option>Law Firm</option><option>International Client</option></select><select class="form-select"><option value="">Preferred City</option><option>Delhi</option><option>Gurgaon</option><option>Noida</option><option>Prayagraj</option><option>Lucknow</option><option>Other</option></select></div>
+      <div class="form-row full"><textarea class="form-textarea" placeholder="Briefly describe your legal matter..."></textarea></div>
+      <button class="form-submit">Submit Enquiry →</button>
+    </div>
+  </div>
+</section>
+
 <!-- ── Stats ── -->
 <section class="stats-section fade-up">
   <div class="stats-inner">
@@ -279,12 +372,36 @@
 
 <!-- ── About Strip ── -->
 <section class="about-strip fade-up" id="about">
-  <div class="about-quote">
-    "Justice Will Not Be Served Until Those Who Are Unaffected Are As Outraged As Those Who Are."
-  </div>
+  <div class="about-quote">"Justice Will Not Be Served Until Those Who Are Unaffected Are As Outraged As Those Who Are."</div>
   <div class="about-text">
     <p>Legal Syndicate Advisory is one of India's most trusted multi-practice law firms, operating across Delhi, Gurgaon, Noida, Prayagraj, Lucknow and 7 more cities.</p>
     <p>Founded with a mission to make expert legal representation accessible, we combine deep legal expertise with modern client service — ensuring every case receives the attention and strategy it deserves.</p>
+  </div>
+</section>
+
+<!-- ── Lawyer Onboarding ── -->
+<section class="lawyer-section fade-up" id="lawyers">
+  <div class="lawyer-inner">
+    <div class="pa-label">For Legal Professionals</div>
+    <h2 class="section-title-c3">Join Our Lawyer Network</h2>
+    <p class="section-desc-c3">Experienced advocates can register to receive case referrals and join India's fastest-growing legal advisory platform.</p>
+    <div class="lawyer-grid">
+      <div class="consult-info">
+        <div class="check-point"><div class="check-icon">📋</div><div><h4>Structured Case Referrals</h4><p>Receive qualified case leads matched to your specialisation.</p></div></div>
+        <div class="check-point"><div class="check-icon">🤝</div><div><h4>Collaborative Network</h4><p>Work alongside senior advocates across 12+ cities.</p></div></div>
+        <div class="check-point"><div class="check-icon">📈</div><div><h4>Practice Growth</h4><p>Expand your client base without marketing overhead.</p></div></div>
+        <div class="check-point"><div class="check-icon">🔒</div><div><h4>Verified & Trusted</h4><p>All empanelled lawyers are verified for professional credentials.</p></div></div>
+      </div>
+      <div class="lawyer-form-box">
+        <h3 style="margin-bottom:20px;font-size:1.2em;">Empanelment Application</h3>
+        <div class="form-row"><input type="text" class="form-input" placeholder="Full Name *"><input type="tel" class="form-input" placeholder="Phone Number *"></div>
+        <div class="form-row"><input type="email" class="form-input" placeholder="Email Address *"><input type="text" class="form-input" placeholder="Bar Council Enrolment No. *"></div>
+        <div class="form-row"><select class="form-select"><option value="">Practice Area *</option><option>Criminal Law</option><option>Civil Law</option><option>Corporate Law</option><option>Family Law</option><option>Cyber Crime</option><option>Real Estate</option><option>IP & Trademark</option><option>Tax / NCLT</option><option>Other</option></select><select class="form-select"><option value="">Years of Experience *</option><option>0–3 Years</option><option>3–7 Years</option><option>7–15 Years</option><option>15+ Years</option></select></div>
+        <div class="form-row"><select class="form-select"><option value="">Primary City *</option><option>Delhi</option><option>Gurgaon</option><option>Noida</option><option>Prayagraj</option><option>Lucknow</option><option>Other</option></select><input type="text" class="form-input" placeholder="Court/Tribunal Affiliation"></div>
+        <div class="form-row full"><textarea class="form-textarea" placeholder="Brief bio and areas of notable expertise..."></textarea></div>
+        <button class="form-submit" style="width:100%;">Submit Application →</button>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -292,24 +409,22 @@
 <section class="blog-preview fade-up" id="blog">
   <div class="blog-label">Latest Insights</div>
   <div class="blog-grid">
-    <div class="blog-card">
-      <span class="blog-tag">Criminal Law</span>
-      <h4>Understanding Bail Provisions Under the New Criminal Code 2024</h4>
-      <div class="blog-date">March 2026</div>
-      <a href="#" class="blog-link">Read More →</a>
-    </div>
-    <div class="blog-card">
-      <span class="blog-tag">Corporate</span>
-      <h4>Key Compliance Changes for Indian Startups in 2026</h4>
-      <div class="blog-date">February 2026</div>
-      <a href="#" class="blog-link">Read More →</a>
-    </div>
-    <div class="blog-card">
-      <span class="blog-tag">Cyber Crime</span>
-      <h4>How to Protect Your Business From Digital Fraud in India</h4>
-      <div class="blog-date">January 2026</div>
-      <a href="#" class="blog-link">Read More →</a>
-    </div>
+    <div class="blog-card"><span class="blog-tag">Criminal Law</span><h4>Understanding Bail Provisions Under the New Criminal Code 2024</h4><div class="blog-date">March 2026</div><a href="#" class="blog-link">Read More →</a></div>
+    <div class="blog-card"><span class="blog-tag">Corporate</span><h4>Key Compliance Changes for Indian Startups in 2026</h4><div class="blog-date">February 2026</div><a href="#" class="blog-link">Read More →</a></div>
+    <div class="blog-card"><span class="blog-tag">Cyber Crime</span><h4>How to Protect Your Business From Digital Fraud in India</h4><div class="blog-date">January 2026</div><a href="#" class="blog-link">Read More →</a></div>
+  </div>
+</section>
+
+<!-- ── FAQ ── -->
+<section class="faq-section fade-up">
+  <div class="faq-inner">
+    <div class="pa-label" style="text-align:center;">FAQ</div>
+    <h2 class="section-title-c3" style="text-align:center;">Got Questions?</h2>
+    <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">How do I book a consultation?<span class="faq-toggle">+</span></div><div class="faq-a">Fill out our consultation form or call +91 9773906767. A senior advocate will contact you within 24 hours.</div></div>
+    <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">What areas of law do you cover?<span class="faq-toggle">+</span></div><div class="faq-a">Criminal, Civil, Corporate, Family, Cyber Crime, Real Estate, IP & Trademark, Consumer Protection, NCLT & Tax, and Environment Law across 12+ cities.</div></div>
+    <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">Do you handle international clients?<span class="faq-toggle">+</span></div><div class="faq-a">Yes. Virtual consultations are available for overseas clients across all practice areas.</div></div>
+    <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">How can a lawyer join your network?<span class="faq-toggle">+</span></div><div class="faq-a">Apply via the Empanelment form. We verify credentials and match you with case referrals.</div></div>
+    <div class="faq-item" onclick="this.classList.toggle('open')"><div class="faq-q">Is my consultation confidential?<span class="faq-toggle">+</span></div><div class="faq-a">Absolutely. All communications are protected under strict attorney-client privilege.</div></div>
   </div>
 </section>
 
@@ -317,13 +432,32 @@
 <footer class="footer" id="contact">
   <div class="footer-logo">Legal Syndicate.</div>
   <div class="footer-links">
-    <a href="#">Home</a><a href="#">About</a><a href="#">Services</a>
-    <a href="#">Blog</a><a href="#">Contact</a>
+    <a href="#home">Home</a><a href="#about">About</a><a href="#services">Services</a>
+    <a href="#blog">Blog</a><a href="#contact">Contact</a>
     <a href="tel:+919773906767">+91 9773906767</a>
     <a href="mailto:syndicateadvisory@gmail.com">syndicateadvisory@gmail.com</a>
   </div>
   <div class="footer-copy">© 2026 Legal Syndicate Advisory Pvt. Ltd.</div>
 </footer>
+
+<!-- ── Floating WhatsApp ── -->
+<a href="https://wa.me/919773906767" target="_blank" class="whatsapp-float" title="Chat on WhatsApp">💬</a>
+
+<!-- ── Floating AI Chatbot ── -->
+<div class="chatbot-float" onclick="document.getElementById('chatbotPopup').classList.toggle('open')" title="AI Legal Assistant">🤖</div>
+<div class="chatbot-popup" id="chatbotPopup">
+  <div class="chatbot-header">
+    <h4>🤖 AI Legal Assistant</h4>
+    <button class="chatbot-close" onclick="document.getElementById('chatbotPopup').classList.remove('open')">✕</button>
+  </div>
+  <div class="chatbot-body">
+    <div class="chat-msg bot">Hello! I'm your AI Legal Assistant. I can help you understand your legal options, find the right practice area, or schedule a consultation. How can I help?</div>
+  </div>
+  <div class="chatbot-input-area">
+    <input type="text" class="chatbot-input" placeholder="Type your question...">
+    <button class="chatbot-send">Send</button>
+  </div>
+</div>
 
 <script>
   window.addEventListener('scroll', () => {
