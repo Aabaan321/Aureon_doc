@@ -6,7 +6,12 @@ const clientDatabase = {
     password: "7Kx3mQ9pL2",
     dashboardUrl: "client-lsa.html" 
   },
-  // Client 2: Demonstration Client
+  // Client 2: Gem Construction
+  "GEM-2026": {
+    password: "gem",
+    dashboardUrl: "client-gem.html"
+  },
+  // Client 3: Demonstration Client
   "DEMO-CLIENT": {
     password: "demo",
     dashboardUrl: "client-demo.html"

@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aureon Studio — Technical & UI/UX Audit Report for Gem Construction</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0f;
+      --bg2: #12121a;
+      --card: #1a1a25;
+      --gold: #c9a84c;
+      --gold-light: #e8d48b;
+      --gold-grad: linear-gradient(135deg, #c9a84c, #e8d48b, #c9a84c);
+      --text: #f0ece2;
+      --text2: #a0a0b0;
+      --muted: #6a6a7a;
+      --border: rgba(201,168,76,0.15);
+      --red: #ff4d4d;
+      --yellow: #f0c040;
+    }
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.7;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Ambient glow */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0; left: 0; right: 0; height: 3px;
+      background: var(--gold-grad);
+      z-index: 100;
+    }
+
+    /* Nav */
+    .nav {
+      width: 100%;
+      padding: 30px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+    }
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2em;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      background: var(--gold-grad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .back-btn {
+      color: var(--text2);
+      text-decoration: none;
+      font-size: 0.9em;
+      transition: color 0.3s;
+    }
+    .back-btn:hover { color: var(--gold); }
+
+    /* Report Layout */
+    .report-container {
+      width: 100%;
+      max-width: 800px;
+      padding: 80px 30px;
+    }
+
+    .report-header { margin-bottom: 60px; }
+    .report-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.8em;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 30px;
+      color: var(--text);
+    }
+    
+    .meta-box {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 24px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .meta-item { display: flex; flex-direction: column; }
+    .meta-label { font-family: 'JetBrains Mono', monospace; font-size: 0.7em; color: var(--gold); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 4px; }
+    .meta-value { font-weight: 500; font-size: 0.95em; }
+    .status-alert { color: var(--red); font-weight: 600; display: flex; align-items: center; gap: 8px; }
+
+    .summary {
+      font-size: 1.1em;
+      color: var(--text2);
+      margin-bottom: 60px;
+      padding-left: 20px;
+      border-left: 3px solid var(--gold);
+    }
+
+    /* Sections */
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8em;
+      color: var(--gold);
+      margin-top: 60px;
+      margin-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 15px;
+    }
+    .section-desc {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75em;
+      color: var(--muted);
+      margin-bottom: 40px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .issue-card {
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 12px;
+      padding: 30px;
+      margin-bottom: 24px;
+    }
+    .issue-card.critical { border-left: 3px solid var(--red); }
+    .issue-card.high { border-left: 3px solid var(--yellow); }
+    .issue-card.seo { border-left: 3px solid #3b82f6; }
+    .issue-card.medium { border-left: 3px solid rgba(255, 255, 255, 0.4); }
+
+    .issue-header {
+      font-size: 1.1em;
+      font-weight: 600;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .issue-impact {
+      color: var(--text2);
+      font-size: 0.95em;
+    }
+    .issue-impact strong { color: var(--text); }
+
+    .issue-link-list { margin-top: 15px; background: var(--bg2); padding: 15px; border-radius: 6px; font-family: 'JetBrains Mono', monospace; font-size: 0.8em; color: var(--gold-light); }
+    .issue-link-list a { color: inherit; display: block; margin-bottom: 4px; text-decoration: none; }
+    .issue-link-list a:hover { text-decoration: underline; }
+
+    .remediation-box {
+      margin-top: 60px;
+      background: rgba(201,168,76,0.05);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 40px;
+    }
+    .remediation-box h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6em;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+    .remediation-list {
+      list-style: none;
+    }
+    .remediation-list li {
+      position: relative;
+      padding-left: 24px;
+      margin-bottom: 16px;
+      color: var(--text2);
+    }
+    .remediation-list li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: var(--gold);
+      font-weight: bold;
+    }
+    .remediation-list strong { color: var(--text); }
+
+    .footer {
+      text-align: center;
+      padding: 60px 0 40px;
+      color: var(--muted);
+      font-size: 0.8em;
+    }
+
+    @media (max-width: 600px) {
+      .meta-box { grid-template-columns: 1fr; }
+      .report-title { font-size: 2.2em; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="nav">
+  <div class="logo">Aureon Studio</div>
+  <a href="client-gem.html" class="back-btn">← Back to Dashboard</a>
+</div>
+
+<div class="report-container">
+  
+  <div class="report-header">
+    <h1 class="report-title">Comprehensive Technical & UI/UX Audit Report</h1>
+    
+    <div class="meta-box">
+      <div class="meta-item">
+        <span class="meta-label">Website Audited</span>
+        <span class="meta-value"><a href="https://gemconstruction.in/" target="_blank" style="color:var(--text);text-decoration:none;">gemconstruction.in ↗</a></span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Date of Audit</span>
+        <span class="meta-value">March 2026</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Prepared By</span>
+        <span class="meta-value">Aureon Studio</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Overall Status</span>
+        <span class="status-alert">🔴 Action Required</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="summary">
+    <strong>Executive Summary:</strong> This document serves as a detailed ledger of all structural, functional, and search-engine-related failures currently present on gemconstruction.in. The errors listed below are actively harming user trust, breaking core site functionality, and severely limiting the website's ability to rank on Google.
+  </div>
+
+  <!-- Section 1 -->
+  <h2 class="section-title">01 / Critical Errors</h2>
+  <div class="section-desc">Issues currently breaking the website's functionality and visual credibility</div>
+
+  <div class="issue-card critical">
+    <div class="issue-header">🔴 Mass Image Failures (SVG Placeholders)</div>
+    <div class="issue-impact">
+      <strong>Impact:</strong> 15 out of 17 images on the homepage are failing to load entirely. Instead of displaying high-quality construction portfolios, the website serves raw, broken SVG graphical placeholders. This is likely caused by a broken lazy-loading plugin or caching conflict (e.g., LiteSpeed Cache).
+    </div>
+  </div>
+
+  <div class="issue-card critical">
+    <div class="issue-header">🔴 Broken Primary Navigation Routing</div>
+    <div class="issue-impact">
+      <strong>Impact:</strong> The button and link mapped to "Commercial Projects" incorrectly redirects users to the residential construction page. This causes extreme confusion and blocks potential high-value commercial clients.
+    </div>
+    <div class="issue-link-list">
+      Location of failures:<br>
+      <a href="#">- Homepage</a>
+      <a href="#">- /services/</a>
+      <a href="#">- /get-a-quote/</a>
+    </div>
+  </div>
+
+  <!-- Section 2 -->
+  <h2 class="section-title">02 / High Priority Issues</h2>
+  <div class="section-desc">Issues severely degrading professional appearance and automated functions</div>
+
+  <div class="issue-card high">
+    <div class="issue-header">⚠️ Frozen JavaScript Statistics Counters</div>
+    <div class="issue-impact">
+      <strong>Impact:</strong> The animated number counters designed to dynamically count up to metrics like "Years of Experience" or "Projects Completed" are fundamentally broken. They are frozen at 0+ across almost every page on the site.
+    </div>
+  </div>
+
+  <div class="issue-card high">
+    <div class="issue-header">⚠️ Unprofessional Internal Email Exposure</div>
+    <div class="issue-impact">
+      <strong>Impact:</strong> The personal email address <code>nazir.digitals@gmail.com</code> is publicly exposed in the article metadata and authorship tags across the site's blog and news sections instead of an official company email.
+    </div>
+  </div>
+
+  <!-- Section 3 -->
+  <h2 class="section-title">03 / Search Engine Optimization (SEO)</h2>
+  <div class="section-desc">Failures preventing the website from ranking on Google and Bing</div>
+
+  <div class="issue-card seo">
+    <div class="issue-header">🔍 Missing Image Metadata (Alt Text)</div>
+    <div class="issue-impact">
+      <strong>Impact:</strong> 27 images across 8 different pages have completely blank alt attributes. Search engines cannot "see" images; they read the alt text. Without it, the site loses massive amounts of keyword relevance.
+    </div>
+  </div>
+
+  <div class="issue-card seo">
+    <div class="issue-header">🔍 Missing Core Page Titles (H1 Tags)</div>
+    <div class="issue-impact">
+      <strong>Impact:</strong> The majority of the site's core service pages completely lack an &lt;h1&gt; heading. Search engines use the H1 tag to understand the primary topic of the page. Without it, core pages will not rank properly.
+    </div>
+  </div>
+
+  <div class="issue-card seo">
+    <div class="issue-header">🔍 Conflicting Page Titles</div>
+    <div class="issue-impact">
+      <strong>Impact:</strong> Conversely, all 3 published blog articles contain multiple &lt;h1&gt; tags on the same page, which confuses web crawlers and dilutes keyword authority.
+    </div>
+  </div>
+
+  <!-- Section 4 -->
+  <h2 class="section-title">04 / Medium Priority</h2>
+  <div class="section-desc">Aesthetic improvements and grammatical corrections (Content & Design)</div>
+
+  <div class="issue-card medium">
+    <div class="issue-header">🟡 Auto-Generated Future Blog Dates</div>
+    <div class="issue-impact"><strong>Impact:</strong> Blog articles and news snippets are stamped with auto-generated placeholder dates located in the future (e.g., "August 16, 2025"). This degrades the authenticity of the company's news feed.</div>
+  </div>
+  
+  <div class="issue-card medium">
+    <div class="issue-header">🟡 Grammatical & Capitalization Errors</div>
+    <div class="issue-impact"><strong>Impact:</strong> The phrase "stylish homes" is improperly capitalized in feature headings across the homepage and service cards, which detracts from the premium feel of a luxury construction firm.</div>
+  </div>
+
+  <div class="issue-card medium">
+    <div class="issue-header">🟡 Header Typo</div>
+    <div class="issue-impact"><strong>Impact:</strong> The section heading on the homepage reads "Gems Blogs" instead of the grammatically correct "GEM Blogs".</div>
+  </div>
+
+  <!-- Remediation -->
+  <div class="remediation-box">
+    <h3>Final Remediation Recommendations</h3>
+    <p style="color:var(--text2); margin-bottom:20px;">If the decision is made to repair or rebuild gemconstruction.in, the following steps are mandatory:</p>
+    <ul class="remediation-list">
+      <li><strong>Remove Conflicting Plugins:</strong> Disable litespeed-cache and reset the image optimization logic to stop the SVG placeholder loop.</li>
+      <li><strong>Repair DOM Observers:</strong> Fix the JavaScript triggering the viewport observer for the 0+ stats counters so the numbers animate correctly on scroll.</li>
+      <li><strong>Correct Routing Architecture:</strong> Hardcode the correct absolute path (<code>/commercial-construction/</code>) to all "Commercial" buttons to fix the misdirection to the residential page.</li>
+      <li><strong>Enforce Strict SEO Hierarchies:</strong> Ensure every single page has exactly one &lt;h1&gt; tag containing the target local keyword (e.g., "Commercial Construction in Bangalore").</li>
+    </ul>
+  </div>
+
+  <div class="footer">
+    © 2026 Aureon Studio — Web architecture & performance audits.
+  </div>
+
+</div>
+
+</body>
+</html>
