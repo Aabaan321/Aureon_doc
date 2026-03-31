@@ -29,12 +29,6 @@
       font-family: 'Inter', sans-serif;
       font-size: 15px;
       line-height: 1.7;
-      overflow: hidden;
-    }
-
-    /* ── Lock Screen ── */
-    .lock-screen {
-      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
       background: var(--bg);
       z-index: 9999;
       display: flex; align-items: center; justify-content: center;
@@ -253,20 +247,6 @@
 </head>
 <body>
 
-<!-- ── Lock Screen ── -->
-<div class="lock-screen" id="lock-screen">
-  <div class="lock-box">
-    <div class="lock-icon">🔐</div>
-    <div class="lock-logo">AUREON STUDIO</div>
-    <h2 class="lock-title">Design Prototypes</h2>
-    <p class="lock-sub">Enter your Client ID and access code to view the website design concepts.</p>
-    <input type="text" class="lock-input" id="clientId" placeholder="Client ID (e.g. LSA-2026)" autocomplete="off">
-    <input type="password" class="lock-input" id="accessCode" placeholder="10-Digit Access Code" autocomplete="off" maxlength="10">
-    <button class="lock-btn" onclick="unlockPrototypes()">View Prototypes</button>
-    <p class="lock-error" id="lockError">⚠ Invalid credentials. Please check your Client ID and access code.</p>
-    <a href="client-lsa.html" class="lock-back">← Back to Portal</a>
-  </div>
-</div>
 
 <!-- ── Header ── -->
 <header class="header">
@@ -343,33 +323,6 @@
   © 2026 Aureon Studio. All rights reserved.
 </div>
 
-<script>
-  function unlockPrototypes() {
-    const cid = document.getElementById('clientId').value.trim();
-    const code = document.getElementById('accessCode').value.trim();
 
-    // Same Client ID, complex 10-digit password
-    if (cid === 'LSA-2026' && code === '7Kx3mQ9pL2') {
-      document.getElementById('lock-screen').style.opacity = '0';
-      setTimeout(() => {
-        document.getElementById('lock-screen').style.display = 'none';
-        document.body.style.overflow = 'auto';
-      }, 300);
-    } else {
-      const errorMsg = document.getElementById('lockError');
-      errorMsg.style.display = 'block';
-      const inputs = document.querySelectorAll('.lock-input');
-      inputs.forEach(input => {
-        input.style.border = '1px solid #ff4d4d';
-        setTimeout(() => input.style.border = '1px solid var(--border)', 2000);
-      });
-    }
-  }
-
-  // Allow pressing Enter to submit
-  document.getElementById('accessCode').addEventListener('keypress', function(e) {
-    if (e.key === 'Enter') unlockPrototypes();
-  });
-</script>
 </body>
 </html>
