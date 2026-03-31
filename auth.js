@@ -8,7 +8,7 @@ const clientDatabase = {
   },
   // Client 2: Gem Construction
   "GEM-2026": {
-    password: "gem",
+    password: "GEM2026X",
     dashboardUrl: "client-gem.html"
   },
   // Client 3: Demonstration Client
